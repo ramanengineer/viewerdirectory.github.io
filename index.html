@@ -217,6 +217,63 @@
     .org-section { display: none; }
     .org-section.active { display: block; }
 
+    /* Stream Schedule Section */
+    .schedule-container {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: clamp(1.5rem, 3vw, 2.5rem);
+      box-shadow: var(--shadow);
+      margin-top: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    .schedule-container h2 {
+      font-size: clamp(1.5rem, 3vw, 1.8rem);
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .schedule-container .current-live {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .schedule-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: clamp(0.75rem, 2vw, 1rem);
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .schedule-table th {
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    .schedule-table td a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+    }
+
+    .schedule-table td a:hover {
+      color: var(--secondary);
+    }
+
+    .schedule-table td i {
+      font-size: clamp(1.2rem, 3vw, 1.4rem);
+    }
+
     /* Dropdown */
     .streamer-select {
       margin: clamp(1.5rem, 3vw, 2rem) auto;
@@ -405,7 +462,7 @@
       color: var(--primary);
     }
 
-    .schedule-container {
+    .schedule-container:not(.schedule-section) {
       background: var(--card);
       backdrop-filter: blur(12px);
       color: var(--text);
@@ -415,7 +472,7 @@
       margin-top: clamp(1.5rem, 3vw, 2rem);
     }
 
-    .schedule-container h3 {
+    .schedule-container:not(.schedule-section) h3 {
       font-size: clamp(1.3rem, 3vw, 1.6rem);
       font-weight: 600;
       margin-bottom: clamp(1rem, 2vw, 1.5rem);
@@ -542,6 +599,22 @@
       .streamer-select { max-width: 100%; }
       .dropdown__face, .dropdown__items { padding: 0.75rem; }
       .live-container { padding: clamp(0.75rem, 2vw, 1rem); }
+      .schedule-table { display: block; }
+      .schedule-table thead { display: none; }
+      .schedule-table tbody, .schedule-table tr { display: block; }
+      .schedule-table td {
+        display: block;
+        text-align: center;
+        padding: 0.5rem;
+        border-bottom: none;
+      }
+      .schedule-table td::before {
+        content: attr(data-label);
+        display: block;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-bottom: 0.25rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -584,6 +657,7 @@
     <div class="org-tabs">
       <div class="org-tab active" data-org="ogvk">OGVK Members</div>
       <div class="org-tab" data-org="ggqp">GGQP Members</div>
+      <div class="org-tab" data-org="schedule">Stream Schedule</div>
     </div>
 
     <div class="org-section active" id="ogvk">
@@ -625,6 +699,24 @@
             <li data-streamer="wenssoy" tabindex="0">WENSSOY</li>
           </ul>
         </div>
+      </div>
+    </div>
+
+    <div class="org-section" id="schedule">
+      <h2>Stream Schedule</h2>
+      <div class="schedule-container schedule-section">
+        <p class="current-live" id="current-live"></p>
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Streamer</th>
+              <th>Next Live</th>
+              <th>Platform</th>
+              <th>Discord</th>
+            </tr>
+          </thead>
+          <tbody id="schedule-table-body"></tbody>
+        </table>
       </div>
     </div>
 
@@ -966,6 +1058,8 @@
       const liveStatus = document.getElementById('live-status');
       const liveContent = document.getElementById('live-content');
       const liveButtonContainer = document.getElementById('live-button-container');
+      const currentLive = document.getElementById('current-live');
+      const scheduleTableBody = document.getElementById('schedule-table-body');
 
       const socialPlatforms = {
         twitch: { icon: 'fa-brands fa-twitch', label: 'Twitch' },
@@ -1052,7 +1146,6 @@
         const nextLiveTimer = content.querySelector('.next-live-timer');
         nextLiveTimer.id = `timer-${streamer.id}`;
 
-        // Add schedule
         const scheduleList = content.querySelector('.schedule-list');
         const { isDST } = getNZTime();
         const timeZone = isDST ? 'NZDT' : 'NZST';
@@ -1081,11 +1174,9 @@
         main.appendChild(clone);
       });
 
-      // Track currently selected profile
       let selectedOrg = 'ogvk';
       let selectedStreamer = 'xwlasxd';
 
-      // Organization tab switching
       orgTabsContainer.addEventListener('click', e => {
         const tab = e.target.closest('.org-tab');
         if (!tab) return;
@@ -1099,17 +1190,17 @@
         const orgSection = document.getElementById(selectedOrg);
         orgSection.classList.add('active');
 
-        // Reset dropdown and select first streamer
-        const dropdownText = document.getElementById(`${selectedOrg}-dropdown-text`);
-        const firstStreamer = streamers.find(s => s.org === selectedOrg);
-        if (firstStreamer) {
-          selectedStreamer = firstStreamer.id;
-          dropdownText.textContent = firstStreamer.name;
-          document.getElementById(selectedStreamer)?.classList.add('active');
+        if (selectedOrg !== 'schedule') {
+          const dropdownText = document.getElementById(`${selectedOrg}-dropdown-text`);
+          const firstStreamer = streamers.find(s => s.org === selectedOrg);
+          if (firstStreamer) {
+            selectedStreamer = firstStreamer.id;
+            dropdownText.textContent = firstStreamer.name;
+            document.getElementById(selectedStreamer)?.classList.add('active');
+          }
         }
       });
 
-      // Dropdown switching
       document.querySelectorAll('.dropdown').forEach(dropdown => {
         const dropdownFace = dropdown.querySelector('.dropdown__face');
         const dropdownItems = dropdown.querySelector('.dropdown__items');
@@ -1148,7 +1239,6 @@
         });
       });
 
-      // Support button copy functionality
       document.querySelectorAll('.support-button').forEach(button => {
         button.addEventListener('click', () => {
           const address = button.dataset.address;
@@ -1171,7 +1261,6 @@
         });
       });
 
-      // Live and Countdown Logic
       function getNZTime() {
         const now = new Date();
         const options = {
@@ -1244,6 +1333,57 @@
         return parts.join(' ');
       }
 
+      function updateSchedule() {
+        const { time, isDST, now } = getNZTime();
+        const timeZone = isDST ? 'NZDT' : 'NZST';
+        const currentMinutes = parseInt(time.split(':')[0]) * 60 + parseInt(time.split(':')[1]);
+        const today = now.toLocaleString('en-NZ', { timeZone: 'Pacific/Auckland', weekday: 'long' });
+
+        let liveStreamer = null;
+        let nextStreamer = null;
+        let minTimeUntilNext = Infinity;
+
+        streamers.forEach(streamer => {
+          const { days, time: scheduleTime } = streamer.schedule;
+          const { start, end } = parseTime(scheduleTime);
+
+          if (days.includes(today) && currentMinutes >= start && currentMinutes < end) {
+            liveStreamer = streamer;
+          } else {
+            const nextLive = getNextLive(streamer, now);
+            const timeUntilNext = nextLive.date - now;
+            if (timeUntilNext < minTimeUntilNext && timeUntilNext > 0) {
+              minTimeUntilNext = timeUntilNext;
+              nextStreamer = { ...streamer, nextLive };
+            }
+          }
+        });
+
+        if (liveStreamer) {
+          currentLive.textContent = `${liveStreamer.name} is live now!`;
+        } else if (nextStreamer) {
+          const { day, time } = nextStreamer.nextLive;
+          currentLive.textContent = `Next: ${nextStreamer.name} on ${day} at ${time}`;
+        } else {
+          currentLive.textContent = 'No one is live. Check back later!';
+        }
+
+        const sortedStreamers = [...streamers].sort((a, b) => a.name.localeCompare(b.name));
+        scheduleTableBody.innerHTML = '';
+        sortedStreamers.forEach(streamer => {
+          const nextLive = getNextLive(streamer, now);
+          const isLive = liveStreamer && liveStreamer.id === streamer.id;
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td data-label="Streamer">${streamer.name}</td>
+            <td data-label="Next Live">${isLive ? `Live now until ${streamer.schedule.time.split('-')[1]} ${timeZone}` : `${nextLive.day} at ${nextLive.time}`}</td>
+            <td data-label="Platform"><a href="${streamer.social.twitch.url}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitch"></i> Twitch</a></td>
+            <td data-label="Discord"><a href="${streamer.social.discord.url}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-discord"></i> Join</a></td>
+          `;
+          scheduleTableBody.appendChild(row);
+        });
+      }
+
       function updateLiveStatus() {
         const { time, isDST, now } = getNZTime();
         const timeZone = isDST ? 'NZDT' : 'NZST';
@@ -1254,7 +1394,6 @@
         let nextStreamer = null;
         let minTimeUntilNext = Infinity;
 
-        // Determine live and next streamer
         streamers.forEach(streamer => {
           const { days, time: scheduleTime } = streamer.schedule;
           const { start, end } = parseTime(scheduleTime);
@@ -1295,7 +1434,6 @@
           `;
         }
 
-        // Update individual countdown timers
         streamers.forEach(streamer => {
           const timerElement = document.getElementById(`timer-${streamer.id}`);
           if (!timerElement) return;
@@ -1310,17 +1448,20 @@
             timerElement.innerHTML = `Next live in <span class="countdown">${formatCountdown(timeUntilNext)}</span> on ${nextLive.day} at ${nextLive.time}`;
           }
         });
+
+        updateSchedule();
       }
 
-      // Initialize and update status
       try {
         updateLiveStatus();
-        setInterval(updateLiveStatus, 1000); // Update every second for real-time countdown
+        setInterval(updateLiveStatus, 1000);
       } catch (error) {
         console.error('Error in updateLiveStatus:', error);
         liveStatus.textContent = 'Error loading live status';
         liveContent.textContent = '';
         liveButtonContainer.innerHTML = '';
+        currentLive.textContent = 'Error loading schedule';
+        scheduleTableBody.innerHTML = '';
       }
     });
   </script>
