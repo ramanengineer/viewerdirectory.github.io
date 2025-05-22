@@ -10,14 +10,14 @@
   <style>
     :root {
       --primary: #007AFF; /* iOS blue */
-      --primary-dark: #005BB5;
-      --background: linear-gradient(180deg, #F2F7FF 0%, #E6EDFF 100%); /* Soft gradient */
-      --card: rgba(255, 255, 255, 0.7); /* Glassy white */
-      --card-hover: rgba(255, 255, 255, 0.9);
-      --text: #1C2526; /* Darker text for contrast */
-      --text-muted: #6B7280; /* Softer gray */
+      --secondary: #FF2D55; /* Vibrant pink for accents */
+      --background: #F7F9FC; /* Clean off-white */
+      --card: rgba(255, 255, 255, 0.85); /* Glassy white */
+      --card-hover: rgba(255, 255, 255, 0.95);
+      --text: #1A202C; /* Darker text for contrast */
+      --text-muted: #718096; /* Softer gray */
       --border: rgba(255, 255, 255, 0.3);
-      --shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       --color-twitch: #9147FF;
       --color-youtube: #FF0000;
       --color-twitter: #000000;
@@ -55,6 +55,7 @@
     }
 
     a { color: var(--primary); text-decoration: none; }
+    a:hover { color: var(--secondary); }
     h1, h2, h3 { font-weight: 600; letter-spacing: -0.02em; }
     button { 
       cursor: pointer; 
@@ -117,6 +118,13 @@
     .live-button.vods { background: var(--primary); }
     .live-button:hover { transform: translateY(-2px); }
 
+    .live-button i, .live-button img {
+      font-size: clamp(1.2rem, 3vw, 1.4rem);
+      width: clamp(24px, 5vw, 28px);
+      height: clamp(24px, 5vw, 28px);
+      object-fit: contain;
+    }
+
     /* Support Container */
     .support-container {
       background: var(--card);
@@ -161,6 +169,7 @@
     .support-button img {
       width: clamp(24px, 5vw, 28px);
       height: clamp(24px, 5vw, 28px);
+      object-fit: contain;
     }
 
     /* Main */
@@ -373,6 +382,24 @@
       text-align: center;
     }
 
+    .next-live-timer a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 12px;
+      font-size: clamp(0.85rem, 2vw, 0.95rem);
+      font-weight: 500;
+      color: white;
+      background: var(--color-twitch);
+      box-shadow: var(--shadow);
+      text-decoration: none;
+    }
+
+    .next-live-timer a:hover {
+      transform: translateY(-2px);
+    }
+
     .countdown {
       font-weight: 600;
       color: var(--primary);
@@ -543,14 +570,14 @@
     </div>
   </div>
 
-  <div class="live-container">
-    <h3>Who's Live</h3>
-    <p id="live-status">Checking live status...</p>
-    <p id="live-content"></p>
-    <div class="live-buttons" id="live-button-container"></div>
-  </div>
-
   <main class="main">
+    <div class="live-container">
+      <h3>Who's Live</h3>
+      <p id="live-status">Checking live status...</p>
+      <p id="live-content"></p>
+      <div class="live-buttons" id="live-button-container"></div>
+    </div>
+
     <h1>Viewer Directory</h1>
     <p>Connect with our talented members from OGVK and GGQP organizations.</p>
 
@@ -1128,13 +1155,17 @@
           copyToClipboard(address).then(() => {
             button.textContent = button.classList.contains('btc') ? 'Copied BTC!' : 'Copied ETH!';
             setTimeout(() => { 
-              button.textContent = button.classList.contains('btc') ? 'Copy BTC' : 'Copy ETH'; 
+              button.innerHTML = button.classList.contains('btc') 
+                ? '<img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin Logo"> Copy BTC'
+                : '<img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum Logo"> Copy ETH'; 
             }, 2000);
           }).catch(err => {
             console.error('Failed to copy address:', err);
             button.textContent = 'Error';
             setTimeout(() => { 
-              button.textContent = button.classList.contains('btc') ? 'Copy BTC' : 'Copy ETH'; 
+              button.innerHTML = button.classList.contains('btc') 
+                ? '<img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin Logo"> Copy BTC'
+                : '<img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum Logo"> Copy ETH'; 
             }, 2000);
           });
         });
@@ -1274,7 +1305,7 @@
           const timeUntilNext = nextLive.date - now;
 
           if (days.includes(today) && currentMinutes >= start && currentMinutes < end) {
-            timerElement.innerHTML = `Live now until ${scheduleTime.split('-')[1]} ${timeZone} <a href="${streamer.social.twitch.url}" target="_blank" rel="noopener noreferrer" class="live-button twitch"><i class="fa-brands fa-twitch"></i> Go to Live</a>`;
+            timerElement.innerHTML = `Live now until ${scheduleTime.split('-')[1]} ${timeZone} <a href="${streamer.social.twitch.url}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitch"></i> Go to Live</a>`;
           } else {
             timerElement.innerHTML = `Next live in <span class="countdown">${formatCountdown(timeUntilNext)}</span> on ${nextLive.day} at ${nextLive.time}`;
           }
