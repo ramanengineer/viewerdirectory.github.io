@@ -1,667 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>viewerdirectory.com</title>
-<link rel="icon" type="image/png" href="https://via.placeholder.com/32?text=VD">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--bg1:#3a2a24;--bg2:#16213e;--acc:#ff007b;--txt:#fff;--rbg:rgba(30,30,40,0.9);--hbg:#1a1a1a;--htxt:#f0f0f0;--org1:#3a2a24;--org2:#3a2a24;--yt:rgba(229,57,53,0.9);--twitch:rgba(124,77,255,0.9);--twtr:rgba(29,161,242,0.9);--fb:rgba(59,89,152,0.9);--dc:rgba(88,101,242,0.9);--tg:rgba(0,136,204,0.9);--bsky:rgba(0,123,255,0.9);--thrd:rgba(63,91,132,0.9);--ig:rgba(193,53,132,0.9);--reddit:rgba(255,69,0,0.9);--sc:rgba(255,235,59,0.9);--tt:rgba(172,0,97,0.9);--kick:rgba(0,255,0,0.9);--trovo:rgba(0,204,102,0.9);--btc:#F7931A;--eth:#3C3C3D;--cal:rgb(255,0,136)}
-[data-contrast="high"]{--bg1:var(--hbg);--bg2:var(--hbg);--txt:var(--htxt);--rbg:rgba(50,50,60,0.95)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--txt);font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh;overflow-x:hidden;line-height:1.5;display:flex;flex-direction:column;align-items:center;padding:1.5rem}
-a{color:inherit;text-decoration:none}
-h1,h2,h3{font-weight:600;text-align:center}
-button{cursor:pointer;border:none;background:none;font-family:inherit;touch-action:manipulation}
-.main{display:flex;flex-direction:column;align-items:center;width:100%;max-width:1200px}
-.intro{text-align:center;margin-bottom:1.5rem}
-.intro p{max-width:600px;margin:0.5rem auto;font-size:0.9rem}
-.org-select,.streamer-select{margin:1.5rem 0;width:100%;max-width:20rem}
-.org-dropdown,.dropdown{position:relative;width:100%}
-.org-dropdown__face,.dropdown__face{background:rgba(255,255,255,0.12);padding:0.75rem 1rem;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.1);color:var(--txt);font-size:clamp(0.9rem,2.5vw,1rem);font-weight:700;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:all 0.3s ease;box-shadow:0 0.25rem 0.9375rem rgba(0,0,0,0.1)}
-.org-dropdown__face:hover,.org-dropdown__face:focus,.dropdown__face:hover,.dropdown__face:focus{background:rgba(255,255,255,0.2);outline:none;transform:translateY(-0.1rem)}
-.org-dropdown__text,.dropdown__text{flex-grow:1;text-align:left}
-.org-dropdown__items,.dropdown__items{position:absolute;left:0;top:calc(100% + 0.75rem);width:100%;list-style:none;display:none;flex-direction:column;gap:0.5rem;z-index:150;box-shadow:0 0.5rem 1.5rem rgba(0,0,0,0.15);background:rgba(255,255,255,0.12);backdrop-filter:blur(15px);padding:0.75rem;border-radius:0.75rem;border:1px solid rgba(255,255,255,0.1);animation:slideDown 0.3s ease-in-out}
-.org-dropdown__items.active,.dropdown__items.active{display:flex}
-@keyframes slideDown{from{opacity:0;transform:translateY(-0.5rem)}to{opacity:1;transform:translateY(0)}}
-.org-dropdown__items li,.dropdown__items li{padding:0.75rem 1rem;cursor:pointer;transition:all 0.3s ease;border-radius:0.5rem;font-size:clamp(0.9rem,2.5vw,1rem);font-weight:500}
-.org-dropdown__items li:hover,.org-dropdown__items li:focus,.dropdown__items li:hover,.dropdown__items li:focus{background:rgba(255,255,255,0.2);outline:none}
-.org-dropdown__arrow,.dropdown__arrow{border-bottom:2px solid var(--txt);border-right:2px solid var(--txt);width:0.6rem;height:0.6rem;transform:rotate(45deg);transition:transform 0.3s ease}
-.org-dropdown__face.active .org-dropdown__arrow,.dropdown__face.active .dropdown__arrow{transform:rotate(-135deg)}
-.streamer-content{display:none;opacity:0;transition:opacity 0.3s;width:100%;max-width:600px;border:2px solid transparent}
-.streamer-content[data-org="ogvk"]{border-color:var(--org1)}
-.streamer-content[data-org="ggqp"]{border-color:var(--org2)}
-.streamer-content.active{display:flex;flex-direction:column;align-items:center;opacity:1}
-.channel-info{display:flex;flex-direction:column;align-items:center;margin-bottom:1rem;gap:1rem;text-align:center}
-.channel-avatar img{width:60px;height:60px;border-radius:50%;object-fit:cover}
-.channel-header{display:flex;flex-direction:column;align-items:center;gap:0.5rem;margin-bottom:0.5rem}
-.channel-name{font-size:1.2rem;font-weight:700}
-.channel-verified{background:var(--acc);color:var(--txt);font-size:0.65rem;padding:0.2rem 0.4rem;border-radius:3px;font-weight:600}
-.calendar-button{background:var(--cal);border:none;border-radius:0.75rem;padding:0.5rem 1rem;color:var(--txt);font-size:clamp(0.7rem,2vw,0.8rem);font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;transition:all 0.3s ease;box-shadow:0 0.25rem 0.9375rem rgba(0,0,0,0.1);width:100%;max-width:200px;margin:0.5rem auto}
-.calendar-button:hover,.calendar-button:focus{transform:translateY(-0.15rem);outline:none;box-shadow:0 0.5rem 1.5rem rgba(0,0,0,0.2)}
-.channel-status{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-bottom:0.5rem}
-.channel-tag{background:var(--rbg);font-size:0.65rem;padding:0.2rem 0.4rem;border-radius:3px;font-weight:500}
-.channel-actions{display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;margin-top:0.5rem}
-.channel-button{padding:0.4rem 0.8rem;border-radius:5px;font-size:0.85rem;font-weight:600;display:flex;align-items:center;gap:0.4rem;transition:background 0.2s;touch-action:manipulation;color:var(--txt)}
-.channel-button-discord{background:var(--dc)}
-.channel-button-discord:hover{background:rgba(68,81,222,0.9)}
-.channel-button-btc{background:var(--btc)}
-.channel-button-btc:hover{background:#e0861a}
-.channel-button-eth{background:var(--eth)}
-.channel-button-eth:hover{background:#2c2c2c}
-.stream-container{margin-bottom:1rem;text-align:center}
-.stream-status-button{padding:0.6rem 1.2rem;border-radius:5px;font-size:0.9rem;font-weight:600;color:var(--txt);transition:background 0.2s;display:inline-block;text-align:center;width:100%;max-width:300px}
-.stream-status-button.live{background:#ff0000;position:relative}
-.stream-status-button.live::after{content:'';position:absolute;top:0.3rem;right:0.5rem;width:8px;height:8px;background:var(--txt);border-radius:50%;animation:flicker 1s infinite}
-.stream-status-button.offline{background:#0040ff}
-@keyframes flicker{0%{opacity:1}50%{opacity:0.5}100%{opacity:1}}
-.stream-timer{margin-top:0.5rem;background:var(--rbg);color:var(--txt);padding:0.2rem 0.5rem;border-radius:3px;font-size:0.75rem;display:inline-block}
-.goals-container{background:var(--rbg);border-radius:8px;padding:1rem;margin-top:1rem;width:100%;max-width:600px;text-align:center}
-.goal-item{margin-bottom:0.75rem}
-.goal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem}
-.goal-title{font-size:0.9rem;font-weight:600}
-.goal-progress{font-size:0.85rem;color:var(--acc)}
-.goal-bar{height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden}
-.goal-fill{height:100%;background:var(--acc);border-radius:3px;transition:width 0.5s ease}
-.social-container{background:var(--rbg);border-radius:8px;padding:1rem;margin-top:1rem;width:100%;max-width:600px;text-align:center}
-.social-container h3{font-size:1.1rem;font-weight:600;margin-bottom:0.75rem}
-.social-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(60px,1fr));gap:0.75rem;justify-content:center}
-.social-button{background:rgba(255,255,255,0.1);border:none;border-radius:0.75rem;padding:0.75rem;color:var(--txt);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;box-shadow:0 0.25rem 0.9375rem rgba(0,0,0,0.1)}
-.social-button:hover,.social-button:focus{transform:translateY(-0.15rem);outline:none;box-shadow:0 0.5rem 1.5rem rgba(0,0,0,0.2)}
-.social-button.youtube{background:var(--yt)}
-.social-button.twitch{background:var(--twitch)}
-.social-button.twitter{background:var(--twtr)}
-.social-button.facebook{background:var(--fb)}
-.social-button.discord{background:var(--dc)}
-.social-button.telegram{background:var(--tg)}
-.social-button.bluesky{background:var(--bsky)}
-.social-button.threads{background:var(--thrd)}
-.social-button.instagram{background:var(--ig)}
-.social-button.reddit{background:var(--reddit)}
-.social-button.snapchat{background:var(--sc);color:#000}
-.social-button.tiktok{background:var(--tt)}
-.social-button.kick{background:var(--kick);color:#000}
-.social-button.trovox{background:var(--trovo)}
-.social-button img{width:24px;height:24px;object-fit:contain}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--rbg);color:var(--txt);padding:0.75rem 1.5rem;border-radius:5px;box-shadow:0 0.25rem 0.5rem rgba(0,0,0,0.3);z-index:1000;opacity:0;transition:opacity 0.3s ease,transform 0.3s ease}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(-10px)}
-@media (max-width:768px){body{padding:1rem}.main{padding:0.75rem}.channel-avatar img{width:50px;height:50px}.channel-name{font-size:1.1rem}.channel-button{padding:0.35rem 0.7rem;font-size:0.8rem}.stream-status-button{padding:0.5rem 1rem;font-size:0.85rem}.goals-container{padding:0.75rem}.social-container{padding:0.75rem}.social-grid{grid-template-columns:repeat(auto-fit,minmax(50px,1fr))}.social-button{padding:0.5rem;font-size:1rem}.org-dropdown,.dropdown{width:100%}.org-dropdown__face,.org-dropdown__items,.dropdown__face,.dropdown__items{padding:0.75rem;font-size:clamp(0.8rem,2.5vw,0.9rem)}.calendar-button{padding:0.4rem 0.8rem;font-size:clamp(0.6rem,2vw,0.7rem);max-width:180px}}
-@media (max-width:480px){.channel-button{padding:0.3rem 0.6rem;font-size:0.75rem}.stream-status-button{padding:0.4rem 0.8rem;font-size:0.8rem}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viwer Directory</title>
+    <meta name="description" content="Join Viwer Directory's vibrant community by submitting your details. Support us via BTC, ETH, and connect on YouTube, Twitch, OGVK, and GGQP!">
+    <meta name="keywords" content="Viwer Directory, community, form, YouTube, Twitch, OGVK, GGQP, cryptocurrency, BTC, ETH">
+    <meta name="author" content="Viwer Directory">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Viwer Directory - Join Our Community">
+    <meta property="og:description" content="Become part of Viwer Directory through our form. Support with BTC, ETH, and follow on YouTube, Twitch, OGVK, and GGQP.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://viwerdirectory.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Viwer Directory - Join Our Community">
+    <meta name="twitter:description" content="Join Viwer Directory via our form. Support with BTC, ETH, and connect on YouTube, Twitch, OGVK, and GGQP.">
+    <link rel="canonical" href="https://viwerdirectory.com">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #1c1124;
+            --secondary-bg: #0a1a3c;
+            --accent: #ff007b;
+            --text: #f5f5f5;
+            --card-bg: rgba(20, 20, 30, 0.95);
+            --glow: rgba(255, 0, 123, 0.3);
+            --color-youtube: #e53935;
+            --color-twitch: #9146ff;
+            --color-bitcoin: #f7931a;
+            --color-ethereum: #627eea;
+            --color-ogvk: #00cc66;
+            --color-ggqp: #ff4500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(145deg, var(--primary-bg), var(--secondary-bg));
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; touch-action: manipulation; }
+        h1, h2 { font-weight: 900; text-align: center; }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .intro h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--accent), #ff4d94);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 10px var(--glow);
+        }
+
+        .intro p {
+            max-width: 600px;
+            margin: 0.5rem auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .form-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem;
+            max-width: 720px;
+            width: 100%;
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 0, 123, 0.2);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+        }
+
+        iframe {
+            width: 100%;
+            height: 2454px;
+            border: none;
+        }
+
+        .support-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+            animation: slideUp 1s ease-out;
+        }
+
+        .support-container h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+            color: var(--accent);
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .support-button {
+            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+            border-radius: 10px;
+            padding: 0.8rem;
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .support-button:hover, .support-button:focus {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--glow);
+            outline: none;
+        }
+
+        .support-button.youtube { background: var(--color-youtube); }
+        .support-button.twitch { background: var(--color-twitch); }
+        .support-button.ogvk { background: var(--color-ogvk); }
+        .support-button.ggqp { background: var(--color-ggqp); }
+        .support-button.btc { background: var(--color-bitcoin); }
+        .support-button.eth { background: var(--color-ethereum); }
+
+        .support-button img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            color: var(--text);
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            font-size: 0.9rem;
+            border: 1px solid var(--accent);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        footer {
+            background: var(--primary-bg);
+            color: var(--text);
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.95rem;
+            width: 100%;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 0, 123, 0.2);
+        }
+
+        footer a {
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ff4d94;
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .intro h1 {
+                font-size: 2rem;
+            }
+
+            .intro p {
+                font-size: 1rem;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            iframe {
+                height: 2500px;
+            }
+
+            .support-container {
+                padding: 1rem;
+            }
+
+            .support-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            }
+
+            .support-button {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .intro h1 {
+                font-size: 1.8rem;
+            }
+
+            .support-button {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .support-grid {
+                gap: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<main class="main">
-<div class="intro">
-<h1>viewerdirectory.com</h1>
-<p>Explore ogvk.org and ggqp.org streamers!</p>
-</div>
-<div class="org-select">
-<div class="org-dropdown" role="combobox" aria-expanded="false">
-<div class="org-dropdown__face" tabindex="0">
-<div class="org-dropdown__text" id="org-dropdown-text">Select Organization</div>
-<div class="org-dropdown__arrow"></div>
-</div>
-<ul class="org-dropdown__items" id="org-dropdown">
-<li data-org="ogvk" tabindex="0">ogvk.org</li>
-<li data-org="ggqp" tabindex="0">ggqp.org</li>
-</ul>
-</div>
-</div>
-<div class="streamer-select" style="display:none;">
-<div class="dropdown" role="combobox" aria-expanded="false">
-<div class="dropdown__face" tabindex="0">
-<div class="dropdown__text" id="dropdown-text">LIVE NOW!</div>
-<div class="dropdown__arrow"></div>
-</div>
-<ul class="dropdown__items" id="streamer-dropdown">
-<li data-streamer="live-now" tabindex="0">LIVE NOW!</li>
-</ul>
-</div>
-</div>
-<template id="streamer-template">
-<div class="streamer-content" id="" data-org="">
-<div class="channel-info">
-<div class="channel-avatar"><a href=""><img src="" alt="" loading="lazy"></a></div>
-<div class="channel-meta">
-<div class="channel-header">
-<h1 class="channel-name"><a href=""></a></h1>
-<div class="channel-verified">✓ Verified</div>
-<a href="webcal://p178-caldav.icloud.com/published/2/MjA2NjUwNjQ0NjMyMDY2NTT_5wAO6cLLt1hkhJG3gk9UEHNkXdRU1fVnPu_Xm4hx3-heuKEPB1p94I8HijNIh86N8wIy6cBORlZHRjh592E" class="calendar-button"><i class="fas fa-calendar-alt"></i> Subscribe to Calendar</a>
-</div>
-<div class="channel-status"></div>
-<div class="channel-actions">
-<a class="channel-button channel-button-discord" href=""><i class="fab fa-discord"></i> Join Discord</a>
-<button class="channel-button channel-button-btc" data-copy="bc1qa0ynpvwhnjehfp06cerlvrrfdqvaeeyrekaa9d"><img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin Logo" style="width:16px;height:16px;"> Copy BTC Address</button>
-<button class="channel-button channel-button-eth" data-copy="0xF84E4324F59587dc220597429E153D2f244B2548"><img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum Logo" style="width:16px;height:16px;"> Copy ETH Address</button>
-</div>
-</div>
-</div>
-<div class="stream-container"><a class="stream-status-button"></a><div class="stream-timer"></div></div>
-<div class="goals-container">
-<h3>Channel Goals</h3>
-<div class="goal-item"><div class="goal-header"><div class="goal-title"></div><div class="goal-progress"></div></div><div class="goal-bar"><div class="goal-fill"></div></div></div>
-<div class="goal-item"><div class="goal-header"><div class="goal-title"></div><div class="goal-progress"></div></div><div class="goal-bar"><div class="goal-fill"></div></div></div>
-<div class="goal-item"><div class="goal-header"><div class="goal-title"></div><div class="goal-progress"></div></div><div class="goal-bar"><div class="goal-fill"></div></div></div>
-</div>
-<div class="social-container"><h3>my socials</h3><div class="social-grid"></div></div>
-</div>
-</template>
-</main>
-<script>
-const streamers=[
-{org:'ogvk',id:'xwlasxd',name:'xwlasxd',url:'https://twitch.tv/xwlasxd',discord:'https://x.discord.luxury',avatar:'https://i.postimg.cc/F1k6Lykq/xwlasxd-logo.png',tags:['English','Computer Science','Machine Learning'],goals:[{title:'Follower Goal (918K)',progress:'96%'},{title:'Subscriber Goal (15K)',progress:'87%'},{title:'Donation Goal ($5,913)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@xwlasxd'},twitch:{webUrl:'https://twitch.tv/xwlasxd'},twitter:{webUrl:'https://twitter.com/xwlasxd'},facebook:{webUrl:'https://facebook.com/xwlasxd'},discord:{webUrl:'https://x.discord.luxury'},telegram:{webUrl:'https://t.me/xwlasxd'},bluesky:{webUrl:'https://bsky.app/profile/xwlasxd.bsky.social'},threads:{webUrl:'https://threads.net/@xwlasxd'},instagram:{webUrl:'https://instagram.com/xwlasxd'},reddit:{webUrl:'https://reddit.com/r/xwlasxd'},snapchat:{webUrl:'https://snapchat.com/add/xwlasxd'},tiktok:{webUrl:'https://tiktok.com/@xwlasxd'},kick:{webUrl:'https://kick.com/xwlasxd'},trovox:{webUrl:'https://trovo.live/xwlasxd'}},startHour:0,endHour:3},
-{org:'ogvk',id:'heavySamLifts',name:'HeavySamLifts',url:'https://twitch.tv/HeavySamLifts',discord:'https://hsl.discord.luxury',avatar:'https://i.postimg.cc/MMNrLTNd/HSL-logo.png',tags:['English','Fitness','Strength Training'],goals:[{title:'Follower Goal (585K)',progress:'99%'},{title:'Subscriber Goal (12K)',progress:'96%'},{title:'Donation Goal ($2,907)',progress:'88%'}],social:{youtube:{webUrl:'https://youtube.com/@HeavySamLifts'},twitch:{webUrl:'https://twitch.tv/HeavySamLifts'},twitter:{webUrl:'https://twitter.com/HeavySamLifts'},facebook:{webUrl:'https://facebook.com/HeavySamLifts'},discord:{webUrl:'https://hsl.discord.luxury'},telegram:{webUrl:'https://t.me/HeavySamLifts'},bluesky:{webUrl:'https://bsky.app/profile/heavysamlifts.bsky.social'},threads:{webUrl:'https://threads.net/@HeavySamLifts'},instagram:{webUrl:'https://instagram.com/HeavySamLifts'},reddit:{webUrl:'https://reddit.com/r/HeavySamLifts'},snapchat:{webUrl:'https://snapchat.com/add/HeavySamLifts'},tiktok:{webUrl:'https://tiktok.com/@HeavySamLifts'},kick:{webUrl:'https://kick.com/HeavySamLifts'},trovox:{webUrl:'https://trovo.live/HeavySamLifts'}},startHour:3,endHour:6},
-{org:'ogvk',id:'shadyPeterLive',name:'ShadyPeterLive',url:'https://twitch.tv/ShadyPeterLive',discord:'https://spl.discord.luxury',avatar:'https://i.postimg.cc/2V4XHCw7/shady-peter-live-profile-3k.png',tags:['English','Chess','Puzzle Solving'],goals:[{title:'Follower Goal (615K)',progress:'96%'},{title:'Subscriber Goal (10K)',progress:'87%'},{title:'Donation Goal ($1,908)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@ShadyPeterLive'},twitch:{webUrl:'https://twitch.tv/ShadyPeterLive'},twitter:{webUrl:'https://twitter.com/ShadyPeterLive'},facebook:{webUrl:'https://facebook.com/ShadyPeterLive'},discord:{webUrl:'https://spl.discord.luxury'},telegram:{webUrl:'https://t.me/ShadyPeterLive'},bluesky:{webUrl:'https://bsky.app/profile/shadypeterlive.bsky.social'},threads:{webUrl:'https://threads.net/@ShadyPeterLive'},instagram:{webUrl:'https://instagram.com/ShadyPeterLive'},reddit:{webUrl:'https://reddit.com/r/ShadyPeterLive'},snapchat:{webUrl:'https://snapchat.com/add/ShadyPeterLive'},tiktok:{webUrl:'https://tiktok.com/@ShadyPeterLive'},kick:{webUrl:'https://kick.com/ShadyPeterLive'},trovox:{webUrl:'https://trovo.live/ShadyPeterLive'}},startHour:6,endHour:9},
-{org:'ogvk',id:'ramkrishanghoil',name:'ramkrishanghoil',url:'https://twitch.tv/ramkrishanghoil',discord:'https://rkg.discord.luxury',avatar:'https://i.postimg.cc/3kTz7kRq/rkg-logo.png',tags:['English','Productivity','Study Streams'],goals:[{title:'Follower Goal (750K)',progress:'99%'},{title:'Subscriber Goal (8K)',progress:'96%'},{title:'New Equipment Fund ($3,906)',progress:'88%'}],social:{youtube:{webUrl:'https://youtube.com/@ramkrishanghoil'},twitch:{webUrl:'https://twitch.tv/ramkrishanghoil'},twitter:{webUrl:'https://twitter.com/ramkrishanghoil'},facebook:{webUrl:'https://facebook.com/ramkrishanghoil'},discord:{webUrl:'https://rkg.discord.luxury'},telegram:{webUrl:'https://t.me/ramkrishanghoil'},bluesky:{webUrl:'https://bsky.app/profile/ramkrishanghoil.bsky.social'},threads:{webUrl:'https://threads.net/@ramkrishanghoil'},instagram:{webUrl:'https://instagram.com/ramkrishanghoil'},reddit:{webUrl:'https://reddit.com/r/ramkrishanghoil'},snapchat:{webUrl:'https://snapchat.com/add/ramkrishanghoil'},tiktok:{webUrl:'https://tiktok.com/@ramkrishanghoil'},kick:{webUrl:'https://kick.com/ramkrishanghoil'},trovox:{webUrl:'https://trovo.live/ramkrishanghoil'}},startHour:9,endHour:12},
-{org:'ogvk',id:'zxckjsdv',name:'zxckjsdv',url:'https://twitch.tv/zxckjsdv',discord:'https://z.discord.luxury',avatar:'https://i.postimg.cc/0QqJjT1F/zxckjsdv-profile.png',tags:['English','Fashion','Tech Gear'],goals:[{title:'Follower Goal (830K)',progress:'96%'},{title:'Subscriber Goal (13K)',progress:'87%'},{title:'Event Fund ($5,904)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@zxckjsdv'},twitch:{webUrl:'https://twitch.tv/zxckjsdv'},twitter:{webUrl:'https://twitter.com/zxckjsdv'},facebook:{webUrl:'https://facebook.com/zxckjsdv'},discord:{webUrl:'https://z.discord.luxury'},telegram:{webUrl:'https://t.me/zxckjsdv'},bluesky:{webUrl:'https://bsky.app/profile/zxckjsdv.bsky.social'},threads:{webUrl:'https://threads.net/@zxckjsdv'},instagram:{webUrl:'https://instagram.com/zxckjsdv'},reddit:{webUrl:'https://reddit.com/r/zxckjsdv'},snapchat:{webUrl:'https://snapchat.com/add/zxckjsdv'},tiktok:{webUrl:'https://tiktok.com/@zxckjsdv'},kick:{webUrl:'https://kick.com/zxckjsdv'},trovox:{webUrl:'https://trovo.live/zxckjsdv'}},startHour:12,endHour:15},
-{org:'ogvk',id:'brbcompiling',name:'brbcompiling',url:'https://twitch.tv/brbcompiling',discord:'https://brb.discord.luxury',avatar:'https://via.placeholder.com/150?text=brbcompiling',tags:['English','Programming','Tech News'],goals:[{title:'Follower Goal (700K)',progress:'99%'},{title:'Subscriber Goal (12K)',progress:'96%'},{title:'Hackathon Fund ($4,905)',progress:'88%'}],social:{youtube:{webUrl:'https://youtube.com/@brbcompiling'},twitch:{webUrl:'https://twitch.tv/brbcompiling'},twitter:{webUrl:'https://twitter.com/brbcompiling'},facebook:{webUrl:'https://facebook.com/brbcompiling'},discord:{webUrl:'https://brb.discord.luxury'},telegram:{webUrl:'https://t.me/brbcompiling'},bluesky:{webUrl:'https://bsky.app/profile/brbcompiling.bsky.social'},threads:{webUrl:'https://threads.net/@brbcompiling'},instagram:{webUrl:'https://instagram.com/brbcompiling'},reddit:{webUrl:'https://reddit.com/r/brbcompiling'},snapchat:{webUrl:'https://snapchat.com/add/brbcompiling'},tiktok:{webUrl:'https://tiktok.com/@brbcompiling'},kick:{webUrl:'https://kick.com/brbcompiling'},trovox:{webUrl:'https://trovo.live/brbcompiling'}},startHour:15,endHour:18},
-{org:'ogvk',id:'xvbrznem_ogvk',name:'xvbrznem',url:'https://twitch.tv/xvbrznem',discord:'https://xv.discord.luxury',avatar:'https://i.postimg.cc/HcVh35Zr/xvbrznem-logo.jpg',tags:['English','Sleep Science','ASMR'],goals:[{title:'Follower Goal (655K)',progress:'98%'},{title:'Subscriber Goal (11K)',progress:'92%'},{title:'Research Fund ($4,920)',progress:'82%'}],social:{youtube:{webUrl:'https://youtube.com/@xvbrznem'},twitch:{webUrl:'https://twitch.tv/xvbrznem'},twitter:{webUrl:'https://twitter.com/xvbrznem'},facebook:{webUrl:'https://facebook.com/xvbrznem'},discord:{webUrl:'https://xv.discord.luxury'},telegram:{webUrl:'https://t.me/xvbrznem'},bluesky:{webUrl:'https://bsky.app/profile/xvbrznem.bsky.social'},threads:{webUrl:'https://threads.net/@xvbrznem'},instagram:{webUrl:'https://instagram.com/xvbrznem'},reddit:{webUrl:'https://reddit.com/r/xvbrznem'},snapchat:{webUrl:'https://snapchat.com/add/xvbrznem'},tiktok:{webUrl:'https://tiktok.com/@xvbrznem'},kick:{webUrl:'https://kick.com/xvbrznem'},trovox:{webUrl:'https://trovo.live/xvbrznem'}},startHour:18,endHour:24},
-{org:'ggqp',id:'trevorMarksman',name:'TrevorMarksman',url:'https://twitch.tv/trevorMarksman',discord:'https://tm.discord.luxury',avatar:'https://via.placeholder.com/150?text=TrevorMarksman',tags:['English','Psychology','Neuroscience'],goals:[{title:'Follower Goal (875K)',progress:'96%'},{title:'Subscriber Goal (14K)',progress:'87%'},{title:'Donation Goal ($4,932)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@trevorMarksman'},twitch:{webUrl:'https://twitch.tv/trevorMarksman'},twitter:{webUrl:'https://twitter.com/trevorMarksman'},facebook:{webUrl:'https://facebook.com/trevorMarksman'},discord:{webUrl:'https://tm.discord.luxury'},telegram:{webUrl:'https://t.me/trevorMarksman'},bluesky:{webUrl:'https://bsky.app/profile/trevormarksman.bsky.social'},threads:{webUrl:'https://threads.net/@trevorMarksman'},instagram:{webUrl:'https://instagram.com/trevorMarksman'},reddit:{webUrl:'https://reddit.com/r/trevorMarksman'},snapchat:{webUrl:'https://snapchat.com/add/trevorMarksman'},tiktok:{webUrl:'https://tiktok.com/@trevorMarksman'},kick:{webUrl:'https://kick.com/trevorMarksman'},trovox:{webUrl:'https://trovo.live/trevorMarksman'}},startHour:0,endHour:3},
-{org:'ggqp',id:'valentineCoolio',name:'ValentineCoolio',url:'https://twitch.tv/valentineCoolio',discord:'https://vc.discord.luxury',avatar:'https://via.placeholder.com/150?text=ValentineCoolio',tags:['English','Health','Wellness'],goals:[{title:'Follower Goal (435K)',progress:'99%'},{title:'Subscriber Goal (9K)',progress:'96%'},{title:'Marathon Fund ($2,916)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@valentineCoolio'},twitch:{webUrl:'https://twitch.tv/valentineCoolio'},twitter:{webUrl:'https://twitter.com/valentineCoolio'},facebook:{webUrl:'https://facebook.com/valentineCoolio'},discord:{webUrl:'https://vc.discord.luxury'},telegram:{webUrl:'https://t.me/valentineCoolio'},bluesky:{webUrl:'https://bsky.app/profile/valentinecoolio.bsky.social'},threads:{webUrl:'https://threads.net/@valentineCoolio'},instagram:{webUrl:'https://instagram.com/valentineCoolio'},reddit:{webUrl:'https://reddit.com/r/valentineCoolio'},snapchat:{webUrl:'https://snapchat.com/add/valentineCoolio'},tiktok:{webUrl:'https://tiktok.com/@valentineCoolio'},kick:{webUrl:'https://kick.com/valentineCoolio'},trovox:{webUrl:'https://trovo.live/valentineCoolio'}},startHour:3,endHour:6},
-{org:'ggqp',id:'legacyMartian',name:'LegacyMartian',url:'https://twitch.tv/legacyMartian',discord:'https://lm.discord.luxury',avatar:'https://i.postimg.cc/PLfcp01z/legacy-martian-logo.png',tags:['English','Fringe Science','Conspiracies'],goals:[{title:'Follower Goal (395K)',progress:'96%'},{title:'Subscriber Goal (7K)',progress:'87%'},{title:'Research Fund ($5,913)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@legacyMartian'},twitch:{webUrl:'https://twitch.tv/legacyMartian'},twitter:{webUrl:'https://twitter.com/legacyMartian'},facebook:{webUrl:'https://facebook.com/legacyMartian'},discord:{webUrl:'https://lm.discord.luxury'},telegram:{webUrl:'https://t.me/legacyMartian'},bluesky:{webUrl:'https://bsky.app/profile/legacymartian.bsky.social'},threads:{webUrl:'https://threads.net/@legacyMartian'},instagram:{webUrl:'https://instagram.com/legacyMartian'},reddit:{webUrl:'https://reddit.com/r/legacyMartian'},snapchat:{webUrl:'https://snapchat.com/add/legacyMartian'},tiktok:{webUrl:'https://tiktok.com/@legacyMartian'},kick:{webUrl:'https://kick.com/legacyMartian'},trovox:{webUrl:'https://trovo.live/legacyMartian'}},startHour:6,endHour:9},
-{org:'ggqp',id:'movieByMacaffe',name:'MovieByMacaffe',url:'https://twitch.tv/movieByMacaffe',discord:'https://mbm.discord.luxury',avatar:'https://via.placeholder.com/150?text=MovieByMacaffe',tags:['English','Sports','Commentary'],goals:[{title:'Follower Goal (595K)',progress:'99%'},{title:'Subscriber Goal (10K)',progress:'96%'},{title:'Event Fund ($3,924)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@movieByMacaffe'},twitch:{webUrl:'https://twitch.tv/movieByMacaffe'},twitter:{webUrl:'https://twitter.com/movieByMacaffe'},facebook:{webUrl:'https://facebook.com/movieByMacaffe'},discord:{webUrl:'https://mbm.discord.luxury'},telegram:{webUrl:'https://t.me/movieByMacaffe'},bluesky:{webUrl:'https://bsky.app/profile/moviebymacaffe.bsky.social'},threads:{webUrl:'https://threads.net/@movieByMacaffe'},instagram:{webUrl:'https://instagram.com/movieByMacaffe'},reddit:{webUrl:'https://reddit.com/r/movieByMacaffe'},snapchat:{webUrl:'https://snapchat.com/add/movieByMacaffe'},tiktok:{webUrl:'https://tiktok.com/@movieByMacaffe'},kick:{webUrl:'https://kick.com/movieByMacaffe'},trovox:{webUrl:'https://trovo.live/movieByMacaffe'}},startHour:9,endHour:12},
-{org:'ggqp',id:'bizaroPeter',name:'BizaroPeter',url:'https://twitch.tv/bizaroPeter',discord:'https://bp.discord.luxury',avatar:'https://via.placeholder.com/150?text=BizaroPeter',tags:['English','Productivity','Co-working'],goals:[{title:'Follower Goal (545K)',progress:'96%'},{title:'Subscriber Goal (9K)',progress:'87%'},{title:'Equipment Fund ($3,951)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@bizaroPeter'},twitch:{webUrl:'https://twitch.tv/bizaroPeter'},twitter:{webUrl:'https://twitter.com/bizaroPeter'},facebook:{webUrl:'https://facebook.com/bizaroPeter'},discord:{webUrl:'https://bp.discord.luxury'},telegram:{webUrl:'https://t.me/bizaroPeter'},bluesky:{webUrl:'https://bsky.app/profile/bizaropeter.bsky.social'},threads:{webUrl:'https://threads.net/@bizaroPeter'},instagram:{webUrl:'https://instagram.com/bizaroPeter'},reddit:{webUrl:'https://reddit.com/r/bizaroPeter'},snapchat:{webUrl:'https://snapchat.com/add/bizaroPeter'},tiktok:{webUrl:'https://tiktok.com/@bizaroPeter'},kick:{webUrl:'https://kick.com/bizaroPeter'},trovox:{webUrl:'https://trovo.live/bizaroPeter'}},startHour:12,endHour:15},
-{org:'ggqp',id:'wenssoy',name:'WENSSOY',url:'https://twitch.tv/wenssoy',discord:'https://ws.discord.luxury',avatar:'https://via.placeholder.com/150?text=WENSSOY',tags:['English','News','Vlogs'],goals:[{title:'Follower Goal (495K)',progress:'99%'},{title:'Subscriber Goal (11K)',progress:'96%'},{title:'Donation Goal ($4,914)',progress:'78%'}],social:{youtube:{webUrl:'https://youtube.com/@wenssoy'},twitch:{webUrl:'https://twitch.tv/wenssoy'},twitter:{webUrl:'https://twitter.com/wenssoy'},facebook:{webUrl:'https://facebook.com/wenssoy'},discord:{webUrl:'https://ws.discord.luxury'},telegram:{webUrl:'https://t.me/wenssoy'},bluesky:{webUrl:'https://bsky.app/profile/wenssoy.bsky.social'},threads:{webUrl:'https://threads.net/@wenssoy'},instagram:{webUrl:'https://instagram.com/wenssoy'},reddit:{webUrl:'https://reddit.com/r/wenssoy'},snapchat:{webUrl:'https://snapchat.com/add/wenssoy'},tiktok:{webUrl:'https://tiktok.com/@wenssoy'},kick:{webUrl:'https://kick.com/wenssoy'},trovox:{webUrl:'https://trovo.live/wenssoy'}},startHour:15,endHour:18},
-{org:'ggqp',id:'xvbrznem_ggqp',name:'xvbrznem',url:'https://twitch.tv/xvbrznem',discord:'https://xv.discord.luxury',avatar:'https://i.postimg.cc/HcVh35Zr/xvbrznem-logo.jpg',tags:['English','Sleep Science','ASMR'],goals:[{title:'Follower Goal (655K)',progress:'98%'},{title:'Subscriber Goal (11K)',progress:'92%'},{title:'Research Fund ($4,920)',progress:'82%'}],social:{youtube:{webUrl:'https://youtube.com/@xvbrznem'},twitch:{webUrl:'https://twitch.tv/xvbrznem'},twitter:{webUrl:'https://twitter.com/xvbrznem'},facebook:{webUrl:'https://facebook.com/xvbrznem'},discord:{webUrl:'https://xv.discord.luxury'},telegram:{webUrl:'https://t.me/xvbrznem'},bluesky:{webUrl:'https://bsky.app/profile/xvbrznem.bsky.social'},threads:{webUrl:'https://threads.net/@xvbrznem'},instagram:{webUrl:'https://instagram.com/xvbrznem'},reddit:{webUrl:'https://reddit.com/r/xvbrznem'},snapchat:{webUrl:'https://snapchat.com/add/xvbrznem'},tiktok:{webUrl:'https://tiktok.com/@xvbrznem'},kick:{webUrl:'https://kick.com/xvbrznem'},trovox:{webUrl:'https://trovo.live/xvbrznem'}},startHour:18,endHour:24}
-];
-const socialPlatforms={
-youtube:{icon:'fa-brands fa-youtube'},
-twitch:{icon:'fa-brands fa-twitch'},
-twitter:{icon:'fa-brands fa-x-twitter'},
-facebook:{icon:'fa-brands fa-facebook'},
-discord:{icon:'fa-brands fa-discord'},
-telegram:{icon:'fa-brands fa-telegram'},
-bluesky:{icon:'https://i.postimg.cc/QM5FLhnw/Bluesky-Logo-svg.png'},
-threads:{icon:'fa-brands fa-threads'},
-instagram:{icon:'fa-brands fa-instagram'},
-reddit:{icon:'fa-brands fa-reddit'},
-snapchat:{icon:'fa-brands fa-snapchat'},
-tiktok:{icon:'fa-brands fa-tiktok'},
-kick:{icon:'https://i.postimg.cc/B6Kcwrxn/kick-logo.png'},
-trovox:{icon:'https://i.postimg.cc/7PSn1yHB/trovo-logo-1.png'}
-};
-document.addEventListener('DOMContentLoaded',()=>{
-const orgDropdownFace=document.querySelector('.org-dropdown__face');
-const orgDropdownItems=document.querySelector('.org-dropdown__items');
-const streamerSelect=document.querySelector('.streamer-select');
-const dropdownFace=document.querySelector('.dropdown__face');
-const dropdownItems=document.querySelector('.dropdown__items');
-const main=document.querySelector('.main');
-const template=document.getElementById('streamer-template');
-let selectedOrg=null;
-let timerId=null;
-function showToast(message){
-try{
-console.log('Showing toast:',message);
-let toast=document.querySelector('.toast');
-if(!toast){
-toast=document.createElement('div');
-toast.className='toast';
-document.body.appendChild(toast);
-}
-toast.textContent=message;
-toast.classList.add('show');
-setTimeout(()=>{toast.classList.remove('show')},3000);
-}catch(e){
-console.error('Error in showToast:',e);
-}
-}
-async function copyToClipboard(text){
-try{
-console.log('Copying to clipboard:',text);
-if(navigator.clipboard&&window.isSecureContext){
-await navigator.clipboard.writeText(text);
-showToast(`Copied to clipboard: ${text}`);
-}else{
-const textArea=document.createElement('textarea');
-textArea.value=text;
-textArea.style.position='fixed';
-textArea.style.opacity='0';
-document.body.appendChild(textArea);
-textArea.focus();
-textArea.select();
-document.execCommand('copy');
-document.body.removeChild(textArea);
-showToast(`Copied to clipboard: ${text}`);
-}
-}catch(e){
-console.error('Error in copyToClipboard:',e);
-showToast('Failed to copy to clipboard.');
-}
-}
-function getNzTime(date){
-try{
-console.log('Getting NZ time for:',date);
-return new Date(date.toLocaleString("en-US",{timeZone:"Pacific/Auckland"}));
-}catch(e){
-console.error('Error in getNzTime:',e);
-return new Date();
-}
-}
-function isStreamingDay(org){
-try{
-console.log('Checking if streaming day for org:',org);
-const time=getNzTime(new Date());
-const day=time.getDay();
-if(org==='ogvk'){
-return [1,3,5,0].includes(day);
-}else if(org==='ggqp'){
-return [2,4,6].includes(day);
-}
-return false;
-}catch(e){
-console.error('Error in isStreamingDay:',e);
-return false;
-}
-}
-function getCurrentStreamer(org){
-try{
-console.log('Getting current streamer for org:',org);
-if(!isStreamingDay(org)){
-console.log('Not a streaming day for:',org);
-return null;
-}
-const time=getNzTime(new Date());
-const currentHour=time.getHours();
-const currentStreamer=streamers.find(s=>s.org===org&&currentHour>=s.startHour&&currentHour<s.endHour);
-console.log('Current streamer:',currentStreamer?currentStreamer.id:'None');
-return currentStreamer||null;
-}catch(e){
-console.error('Error in getCurrentStreamer:',e);
-return null;
-}
-}
-function getNextStreamer(org,currentStreamer){
-try{
-console.log('Getting next streamer for org:',org,'with current:',currentStreamer?currentStreamer.id:'None');
-if(!isStreamingDay(org)){
-const time=getNzTime(new Date());
-let nextDay=time.getDay();
-let daysUntilNext=1;
-const streamingDays=org==='ogvk'?[1,3,5,0]:[2,4,6];
-while(!streamingDays.includes((nextDay+daysUntilNext)%7)){
-daysUntilNext++;
-}
-const next=streamers.find(s=>s.org===org&&s.startHour===0)||streamers.find(s=>s.org===org);
-console.log('Next streamer (not streaming day):',next?next.id:'None');
-return next;
-}
-const time=getNzTime(new Date());
-const currentHour=time.getHours();
-if(!currentStreamer){
-const next=streamers.find(s=>s.org===org&&s.startHour===0)||streamers.find(s=>s.org===org);
-console.log('Next streamer (no current):',next?next.id:'None');
-return next;
-}
-let next=streamers.find(s=>s.org===org&&s.startHour>currentHour&&s.startHour>currentStreamer.startHour);
-if(!next){
-next=streamers.find(s=>s.org===org&&s.startHour===0)||streamers.find(s=>s.org===org);
-}
-console.log('Next streamer:',next?next.id:'None');
-return next;
-}catch(e){
-console.error('Error in getNextStreamer:',e);
-return null;
-}
-}
-function updateStreamerContent(content,streamer,isLive){
-try{
-console.log('Updating streamer content for:',streamer?streamer.id:'None','Is Live:',isLive);
-if(!content||!streamer){
-console.error('Missing content or streamer:',{content,streamer});
-return;
-}
-const time=getNzTime(new Date());
-const currentHour=time.getHours();
-const avatarLink=content.querySelector('.channel-avatar a');
-const avatarImg=content.querySelector('.channel-avatar img');
-const nameLink=content.querySelector('.channel-name a');
-const status=content.querySelector('.channel-status');
-const discordButton=content.querySelector('.channel-button-discord');
-const streamStatusButton=content.querySelector('.stream-status-button');
-const streamTimer=content.querySelector('.stream-timer');
-const goals=content.querySelectorAll('.goal-item');
-const socialGrid=content.querySelector('.social-grid');
-if(avatarLink&&avatarImg&&nameLink&&status&&discordButton&&streamStatusButton&&streamTimer&&goals&&socialGrid){
-avatarLink.href=streamer.url;
-avatarImg.src=streamer.avatar;
-avatarImg.alt=streamer.name;
-nameLink.href=streamer.url;
-nameLink.textContent=streamer.name;
-status.innerHTML='';
-streamer.tags.forEach(tag=>{
-const tagEl=document.createElement('div');
-tagEl.className='channel-tag';
-tagEl.textContent=tag;
-status.appendChild(tagEl);
-});
-discordButton.href=streamer.discord;
-const btcButton=content.querySelector('.channel-button-btc');
-btcButton.replaceWith(btcButton.cloneNode(true));
-content.querySelector('.channel-button-btc').addEventListener('click',e=>{
-e.preventDefault();
-copyToClipboard(btcButton.dataset.copy);
-});
-const ethButton=content.querySelector('.channel-button-eth');
-ethButton.replaceWith(ethButton.cloneNode(true));
-content.querySelector('.channel-button-eth').addEventListener('click',e=>{
-e.preventDefault();
-copyToClipboard(ethButton.dataset.copy);
-});
-streamStatusButton.textContent=isLive?'Join Live on Twitch!':'Watch VODs';
-streamStatusButton.className=`stream-status-button ${isLive?'live':'offline'}`;
-streamStatusButton.href=isLive?streamer.url:`${streamer.url}/videos`;
-let nextStreamTime=new Date(time);
-if(!isStreamingDay(streamer.org)){
-let nextDay=time.getDay();
-let daysUntilNext=1;
-const streamingDays=streamer.org==='ogvk'?[1,3,5,0]:[2,4,6];
-while(!streamingDays.includes((nextDay+daysUntilNext)%7)){
-daysUntilNext++;
-}
-nextStreamTime.setDate(time.getDate()+daysUntilNext);
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}else if(currentHour<streamer.startHour){
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}else{
-let nextDay=time.getDay();
-let daysUntilNext=1;
-const streamingDays=streamer.org==='ogvk'?[1,3,5,0]:[2,4,6];
-while(!streamingDays.includes((nextDay+daysUntilNext)%7)){
-daysUntilNext++;
-}
-nextStreamTime.setDate(time.getDate()+daysUntilNext);
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}
-const timeDiff=nextStreamTime-time;
-const hours=Math.floor(timeDiff/(1000*60*60));
-const minutes=Math.floor((timeDiff%(1000*60*60))/(1000*60));
-const seconds=Math.floor((timeDiff%(1000*60))/1000);
-const countdownText=isLive?`${streamer.name} streaming now!`:timeDiff<=0?`${streamer.name} should be live soon!`:`Next stream in ${hours}h ${minutes}m ${seconds}s`;
-streamTimer.textContent=countdownText;
-streamer.goals.forEach((goal,i)=>{
-goals[i].querySelector('.goal-title').textContent=goal.title;
-goals[i].querySelector('.goal-progress').textContent=goal.progress;
-goals[i].querySelector('.goal-fill').style.width=goal.progress;
-});
-socialGrid.innerHTML='';
-Object.keys(streamer.social).forEach(platform=>{
-const {webUrl}=streamer.social[platform];
-const {icon}=socialPlatforms[platform];
-const socialButton=document.createElement('a');
-socialButton.className=`social-button ${platform}`;
-socialButton.href=webUrl;
-socialButton.innerHTML=icon.startsWith('fa-')?`<i class="${icon}"></i>`:`<img src="${icon}" alt="${platform} icon">`;
-socialGrid.appendChild(socialButton);
-});
-}else{
-console.error('Missing DOM elements in updateStreamerContent:',{
-avatarLink,avatarImg,nameLink,status,discordButton,streamStatusButton,streamTimer,goals,socialGrid
-});
-}
-}catch(e){
-console.error('Error in updateStreamerContent:',e);
-}
-}
-function populateStreamerDropdown(org){
-try{
-console.log('Populating streamer dropdown for org:',org);
-dropdownItems.innerHTML='<li data-streamer="live-now" tabindex="0">LIVE NOW!</li>';
-const orgStreamers=streamers.filter(s=>s.org===org);
-orgStreamers.forEach(streamer=>{
-const li=document.createElement('li');
-li.setAttribute('data-streamer',streamer.id);
-li.setAttribute('tabindex','0');
-li.textContent=streamer.name;
-dropdownItems.appendChild(li);
-});
-console.log('Streamer dropdown populated with:',orgStreamers.length,'streamers');
-}catch(e){
-console.error('Error in populateStreamerDropdown:',e);
-}
-}
-function showStreamerContent(streamerId,org){
-try{
-console.log('Showing streamer content for:',streamerId,'in org:',org);
-document.querySelectorAll('.streamer-content').forEach(c=>c.classList.remove('active'));
-const content=document.getElementById(streamerId==='live-now'?'live-now':streamerId);
-const isLive=isStreamingDay(org)&&streamerId!=='live-now';
-let streamer;
-if(streamerId==='live-now'){
-const currentStreamer=getCurrentStreamer(org);
-streamer=currentStreamer||getNextStreamer(org,null);
-}else{
-streamer=streamers.find(s=>s.id===streamerId);
-}
-if(content&&streamer){
-updateStreamerContent(content,streamer,isLive&&getCurrentStreamer(org)?.id===streamer.id);
-content.classList.add('active');
-document.getElementById('dropdown-text').textContent=streamerId==='live-now'?'LIVE NOW!':streamer.name;
-console.log('Streamer content shown for:',streamer.id);
-}else{
-console.error('Failed to show streamer content:',{content,streamer});
-}
-}catch(e){
-console.error('Error in showStreamerContent:',e);
-}
-}
-function startTimer(){
-try{
-console.log('Starting timer for org:',selectedOrg);
-if(timerId)clearInterval(timerId);
-timerId=setInterval(()=>{
-if(!selectedOrg)return;
-const time=getNzTime(new Date());
-const currentHour=time.getHours();
-streamers.filter(s=>s.org===selectedOrg).forEach(streamer=>{
-const content=document.getElementById(streamer.id);
-if(!content)return;
-const isLive=isStreamingDay(selectedOrg)&&currentHour>=streamer.startHour&&currentHour<streamer.endHour;
-const streamStatusButton=content.querySelector('.stream-status-button');
-const streamTimer=content.querySelector('.stream-timer');
-if(streamStatusButton&&streamTimer){
-streamStatusButton.textContent=isLive?'Join Live on Twitch!':'Watch VODs';
-streamStatusButton.className=`stream-status-button ${isLive?'live':'offline'}`;
-streamStatusButton.href=isLive?streamer.url:`${streamer.url}/videos`;
-let nextStreamTime=new Date(time);
-if(!isStreamingDay(streamer.org)){
-let nextDay=time.getDay();
-let daysUntilNext=1;
-const streamingDays=streamer.org==='ogvk'?[1,3,5,0]:[2,4,6];
-while(!streamingDays.includes((nextDay+daysUntilNext)%7)){
-daysUntilNext++;
-}
-nextStreamTime.setDate(time.getDate()+daysUntilNext);
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}else if(currentHour<streamer.startHour){
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}else{
-let nextDay=time.getDay();
-let daysUntilNext=1;
-const streamingDays=streamer.org==='ogvk'?[1,3,5,0]:[2,4,6];
-while(!streamingDays.includes((nextDay+daysUntilNext)%7)){
-daysUntilNext++;
-}
-nextStreamTime.setDate(time.getDate()+daysUntilNext);
-nextStreamTime.setHours(streamer.startHour,0,0,0);
-}
-const timeDiff=nextStreamTime-time;
-const hours=Math.floor(timeDiff/(1000*60*60));
-const minutes=Math.floor((timeDiff%(1000*60*60))/(1000*60));
-const seconds=Math.floor((timeDiff%(1000*60))/1000);
-const countdownText=isLive?`${streamer.name} streaming now!`:timeDiff<=0?`${streamer.name} should be live soon!`:`Next stream in ${hours}h ${minutes}m ${seconds}s`;
-streamTimer.textContent=countdownText;
-}
-});
-const liveContent=document.getElementById('live-now');
-if(liveContent){
-const currentStreamer=getCurrentStreamer(selectedOrg);
-if(currentStreamer){
-updateStreamerContent(liveContent,currentStreamer,true);
-}else{
-const nextStreamer=getNextStreamer(selectedOrg,null);
-if(nextStreamer){
-updateStreamerContent(liveContent,nextStreamer,false);
-}else{
-liveContent.querySelector('.stream-timer').textContent='No upcoming streams.';
-}
-}
-}
-},1000);
-console.log('Timer started with ID:',timerId);
-}catch(e){
-console.error('Error in startTimer:',e);
-}
-}
-orgDropdownFace.addEventListener('click',()=>{
-try{
-console.log('Org dropdown clicked');
-const isOpen=orgDropdownItems.classList.contains('active');
-orgDropdownItems.classList.toggle('active');
-orgDropdownFace.classList.toggle('active');
-document.querySelector('.org-dropdown').setAttribute('aria-expanded',!isOpen);
-}catch(e){
-console.error('Error in orgDropdownFace click handler:',e);
-}
-});
-orgDropdownItems.querySelectorAll('li').forEach(item=>{
-item.addEventListener('click',()=>{
-try{
-console.log('Org selected:',item.dataset.org);
-selectedOrg=item.dataset.org;
-document.getElementById('org-dropdown-text').textContent=selectedOrg.toUpperCase();
-orgDropdownItems.classList.remove('active');
-orgDropdownFace.classList.remove('active');
-document.querySelector('.org-dropdown').setAttribute('aria-expanded','false');
-streamerSelect.style.display='block';
-populateStreamerDropdown(selectedOrg);
-document.querySelectorAll('.streamer-content').forEach(c=>c.remove());
-const orgStreamers=streamers.filter(s=>s.org===selectedOrg);
-orgStreamers.forEach(streamer=>{
-const clone=template.content.cloneNode(true);
-const content=clone.querySelector('.streamer-content');
-content.id=streamer.id;
-content.dataset.org=selectedOrg;
-main.appendChild(clone);
-});
-const liveClone=template.content.cloneNode(true);
-const liveContent=liveClone.querySelector('.streamer-content');
-liveContent.id='live-now';
-liveContent.dataset.org=selectedOrg;
-liveContent.classList.add('active');
-const currentStreamer=getCurrentStreamer(selectedOrg);
-if(currentStreamer){
-console.log('Initial live content for:',currentStreamer.id);
-updateStreamerContent(liveContent,currentStreamer,true);
-}else{
-const nextStreamer=getNextStreamer(selectedOrg,null);
-if(nextStreamer){
-console.log('Initial next content for:',nextStreamer.id);
-updateStreamerContent(liveContent,nextStreamer,false);
-}else{
-console.log('No upcoming streams for:',selectedOrg);
-liveContent.querySelector('.stream-timer').textContent='No upcoming streams.';
-}
-}
-main.appendChild(liveContent);
-document.getElementById('dropdown-text').textContent='LIVE NOW!';
-startTimer();
-}catch(e){
-console.error('Error in orgDropdownItems click handler:',e);
-}
-});
-item.addEventListener('keydown',e=>{
-if(e.key==='Enter'||e.key===' '){
-try{
-console.log('Org selected via keydown:',item.dataset.org);
-e.preventDefault();
-selectedOrg=item.dataset.org;
-document.getElementById('org-dropdown-text').textContent=selectedOrg.toUpperCase();
-orgDropdownItems.classList.remove('active');
-orgDropdownFace.classList.remove('active');
-document.querySelector('.org-dropdown').setAttribute('aria-expanded','false');
-streamerSelect.style.display='block';
-populateStreamerDropdown(selectedOrg);
-document.querySelectorAll('.streamer-content').forEach(c=>c.remove());
-const orgStreamers=streamers.filter(s=>s.org===selectedOrg);
-orgStreamers.forEach(streamer=>{
-const clone=template.content.cloneNode(true);
-const content=clone.querySelector('.streamer-content');
-content.id=streamer.id;
-content.dataset.org=selectedOrg;
-main.appendChild(clone);
-});
-const liveClone=template.content.cloneNode(true);
-const liveContent=liveClone.querySelector('.streamer-content');
-liveContent.id='live-now';
-liveContent.dataset.org=selectedOrg;
-liveContent.classList.add('active');
-const currentStreamer=getCurrentStreamer(selectedOrg);
-if(currentStreamer){
-console.log('Initial live content for:',currentStreamer.id);
-updateStreamerContent(liveContent,currentStreamer,true);
-}else{
-const nextStreamer=getNextStreamer(selectedOrg,null);
-if(nextStreamer){
-console.log('Initial next content for:',nextStreamer.id);
-updateStreamerContent(liveContent,nextStreamer,false);
-}else{
-console.log('No upcoming streams for:',selectedOrg);
-liveContent.querySelector('.stream-timer').textContent='No upcoming streams.';
-}
-}
-main.appendChild(liveContent);
-document.getElementById('dropdown-text').textContent='LIVE NOW!';
-startTimer();
-}catch(e){
-console.error('Error in orgDropdownItems keydown handler:',e);
-}
-}
-});
-});
-dropdownFace.addEventListener('click',()=>{
-try{
-console.log('Streamer dropdown clicked');
-const isOpen=dropdownItems.classList.contains('active');
-dropdownItems.classList.toggle('active');
-dropdownFace.classList.toggle('active');
-document.querySelector('.dropdown').setAttribute('aria-expanded',!isOpen);
-}catch(e){
-console.error('Error in dropdownFace click handler:',e);
-}
-});
-dropdownItems.addEventListener('click',e=>{
-try{
-const item=e.target.closest('li');
-if(item){
-console.log('Streamer selected:',item.dataset.streamer);
-showStreamerContent(item.dataset.streamer,selectedOrg);
-dropdownItems.classList.remove('active');
-dropdownFace.classList.remove('active');
-document.querySelector('.dropdown').setAttribute('aria-expanded','false');
-}
-}catch(e){
-console.error('Error in dropdownItems click handler:',e);
-}
-});
-dropdownItems.addEventListener('keydown',e=>{
-try{
-const item=e.target.closest('li');
-if(item&&(e.key==='Enter'||e.key===' ')){
-console.log('Streamer selected via keydown:',item.dataset.streamer);
-e.preventDefault();
-showStreamerContent(item.dataset.streamer,selectedOrg);
-dropdownItems.classList.remove('active');
-dropdownFace.classList.remove('active');
-document.querySelector('.dropdown').setAttribute('aria-expanded','false');
-}
-}catch(e){
-console.error('Error in dropdownItems keydown handler:',e);
-}
-});
-});
-</script>
+    <main class="main">
+        <div class="intro">
+            <h1>Viwer Directory</h1>
+            <p>Mailing List!</p>
+        </div>
+        <div class="form-container">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe6p0rcaHT7eilnW_aYB-miZqd3hvIZNV4UIanyFnxE6cuZEw/viewform?embedded=true" width="640" height="2454" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        </div>
+        <div class="support-container">
+            <h2>Support & Connect</h2>
+            <div class="support-grid">
+                <a class="support-button youtube" href="https://youtube.com/@ogvkorg" aria-label="Follow on YouTube">
+                    <i class="fab fa-youtube"></i> @OGVK
+                </a>
+                                <a class="support-button youtube" href="https://youtube.com/@ggqporg" aria-label="Follow on YouTube">
+                    <i class="fab fa-youtube"></i> @GGQP
+                </a>
+                <a class="support-button twitch" href="https://twitch.tv/ogvkorg" aria-label="Follow on Twitch">
+                    <i class="fab fa-twitch"></i> @OGVK
+                </a>
+                <a class="support-button twitch" href="https://twitch.tv/ggqporg" aria-label="Follow on Twitch">
+                    <i class="fab fa-twitch"></i> @GGQP
+                </a>
+                <a class="support-button ogvk" href="https://ogvk.org" aria-label="Visit OGVK">
+                    <i class="fas fa-globe"></i> OGVK
+                </a>
+                <a class="support-button ggqp" href="https://ggqp.org" aria-label="Visit GGQP">
+                    <i class="fas fa-globe"></i> GGQP
+                </a>
+                <button class="support-button btc" data-copy="bc1qa0ynpvwhnjehfp06cerlvrrfdqvaeeyrekaa9d">
+                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin Logo"> Copy BTC
+                </button>
+                <button class="support-button eth" data-copy="0xF84E4324F59587dc220597429E153D2f244B2548">
+                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum Logo"> Copy ETH
+                </button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025 Viwer Directory. All rights reserved. | <a href="mailto:support@viwerdirectory.com">Contact Us</a></p>
+    </footer>
+    <script>
+        function showToast(message) {
+            let toast = document.querySelector('.toast');
+            if (!toast) {
+                toast = document.createElement('div');
+                toast.className = 'toast';
+                document.body.appendChild(toast);
+            }
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                showToast(`Copied: ${text}`);
+            } catch (e) {
+                showToast('Failed to copy. Try again.');
+                console.error('Copy failed:', e);
+            }
+        }
+
+        document.querySelectorAll('.support-button.btc, .support-button.eth').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                copyToClipboard(button.dataset.copy);
+            });
+        });
+    </script>
 </body>
 </html>
