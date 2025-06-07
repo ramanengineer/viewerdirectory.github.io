@@ -88,34 +88,18 @@
             opacity: 0.9;
         }
 
-        .form-container {
-            background: var(--card-bg);
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-            padding: 2.5rem;
+        .form-wrapper {
+            width: 100%;
             max-width: 720px;
-            width: 100%;
             margin-bottom: 2.5rem;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(255, 0, 123, 0.2);
             animation: slideUp 0.8s ease-out;
-        }
-
-        .form-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), transparent);
         }
 
         iframe {
             width: 100%;
             height: 2454px;
             border: none;
+            display: block;
         }
 
         .support-container {
@@ -242,12 +226,12 @@
                 font-size: 1rem;
             }
 
-            .form-container {
-                padding: 1.5rem;
+            .form-wrapper {
+                max-width: 100%;
             }
 
             iframe {
-                height: 2500px;
+                height: 2600px;
             }
 
             .support-container {
@@ -277,6 +261,10 @@
             .support-grid {
                 gap: 0.8rem;
             }
+
+            iframe {
+                height: 2700px;
+            }
         }
     </style>
 </head>
@@ -284,25 +272,19 @@
     <main class="main">
         <div class="intro">
             <h1>Viwer Directory</h1>
-            <p>Mailing List!</p>
+            <p>Join our electrifying community by submitting your details below and vibe with us on socials!</p>
         </div>
-        <div class="form-container">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe6p0rcaHT7eilnW_aYB-miZqd3hvIZNV4UIanyFnxE6cuZEw/viewform?embedded=true" width="640" height="2454" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <div class="form-wrapper">
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe6p0rcaHT7eilnW_aYB-miZqd3hvIZNV4UIanyFnxE6cuZEw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
         </div>
         <div class="support-container">
             <h2>Support & Connect</h2>
             <div class="support-grid">
                 <a class="support-button youtube" href="https://youtube.com/@ogvkorg" aria-label="Follow on YouTube">
-                    <i class="fab fa-youtube"></i> @OGVK
-                </a>
-                                <a class="support-button youtube" href="https://youtube.com/@ggqporg" aria-label="Follow on YouTube">
-                    <i class="fab fa-youtube"></i> @GGQP
+                    <i class="fab fa-youtube"></i> YouTube
                 </a>
                 <a class="support-button twitch" href="https://twitch.tv/ogvkorg" aria-label="Follow on Twitch">
-                    <i class="fab fa-twitch"></i> @OGVK
-                </a>
-                <a class="support-button twitch" href="https://twitch.tv/ggqporg" aria-label="Follow on Twitch">
-                    <i class="fab fa-twitch"></i> @GGQP
+                    <i class="fab fa-twitch"></i> Twitch
                 </a>
                 <a class="support-button ogvk" href="https://ogvk.org" aria-label="Visit OGVK">
                     <i class="fas fa-globe"></i> OGVK
@@ -320,7 +302,7 @@
         </div>
     </main>
     <footer>
-        <p>© 2025 Viwer Directory. All rights reserved. | <a href="https://viewerdirectory.com/">Contact Us</a></p>
+        <p>© 2025 Viwer Directory. All rights reserved. | <a href="mailto:support@viwerdirectory.com">Contact Us</a></p>
     </footer>
     <script>
         function showToast(message) {
