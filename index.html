@@ -1,338 +1,888 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>viewerdirectory</title>
-    <meta name="description" content="Join Viwer Directory's vibrant community by submitting your details. Support us via BTC, ETH, and connect on YouTube, Twitch, OGVK, and GGQP!">
-    <meta name="keywords" content="Viwer Directory, community, form, YouTube, Twitch, OGVK, GGQP, cryptocurrency, BTC, ETH">
-    <meta name="author" content="Viwer Directory">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Viwer Directory - Join Our Community">
-    <meta property="og:description" content="Become part of Viwer Directory through our form. Support with BTC, ETH, and follow on YouTube, Twitch, OGVK, and GGQP.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://viwerdirectory.com">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Viwer Directory - Join Our Community">
-    <meta name="twitter:description" content="Join Viwer Directory via our form. Support with BTC, ETH, and connect on YouTube, Twitch, OGVK, and GGQP.">
-    <link rel="canonical" href="https://viwerdirectory.com">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-bg: #1c1124;
-            --secondary-bg: #0a1a3c;
-            --accent: #ff007b;
-            --text: #f5f5f5;
-            --card-bg: rgba(20, 20, 30, 0.95);
-            --glow: rgba(255, 0, 123, 0.3);
-            --color-youtube: #e53935;
-            --color-twitch: #9146ff;
-            --color-bitcoin: #f7931a;
-            --color-ethereum: #627eea;
-            --color-ogvk: #00cc66;
-            --color-ggqp: #ff4500;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>viewerdirectory.com</title>
+  <meta name="description" content="Join viewerdirectory.com for 24/7 live Twitch streams and community engagement. Follow streamers like xwlasxd, HeavySamLifts, and more. Access via viewerdirectory.com/@username">
+  <meta name="keywords" content="GGQP, live streaming, Twitch, community, xwlasxd, HeavySamLifts, ShadyPeterLive, ramkrishanghoil, zxckjsdv, brbcompiling, TrevorMarksman, ValentineCoolio, LegacyMartian, MovieByMacaffe, BizaroPeter, GynaWENS, xvbrznem, Discord, YouTube, Twitch, TikTok, Instagram, Snapchat, Reddit, Twitter">
+  <meta name="author" content="viewerdirectory.com">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="viewerdirectory.com - Live Twitch Streaming & Community Hub">
+  <meta property="og:description" content="Explore viewerdirectory.com for daily live Twitch streams and community interaction. Connect with streamers and join Discord! Access via viewerdirectory.com/@username">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://viewerdirectory.com">
+  <meta property="og:site_name" content="viewerdirectory.com">
+  <meta property="og:image" content="https://i.postimg.cc/zfSxRGYF/Binge-Watchers-prfile-png-1.png">
+  <meta property="og:image:alt" content="viewerdirectory.com Logo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="viewerdirectory.com - Live Twitch Streaming & Community Hub">
+  <meta name="twitter:description" content="Daily live Twitch streams at viewerdirectory.com! Join xwlasxd, HeavySamLifts, and more for community fun. Access via viewerdirectory.com/@username">
+  <meta name="twitter:image" content="https://i.postimg.cc/zfSxRGYF/Binge-Watchers-prfile-png-1.png">
+  <link rel="canonical" href="https://viewerdirectory.com">
+  <link rel="icon" type="image/png" href="https://i.postimg.cc/zfSxRGYF/Binge-Watchers-prfile-png-1.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    body {
+      background: #1a1a1a;
+      color: #d0d0d0;
+      font-family: Arial, sans-serif;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-        body {
-            background: linear-gradient(145deg, var(--primary-bg), var(--secondary-bg));
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
+    body.light-mode {
+      background: #f0f0f0;
+      color: #333;
+    }
 
-        a { color: inherit; text-decoration: none; }
-        button { cursor: pointer; border: none; background: none; font-family: inherit; touch-action: manipulation; }
-        h1, h2 { font-weight: 900; text-align: center; }
+    a {
+      color: #4a90e2;
+      text-decoration: none;
+    }
 
-        .main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 1200px;
-        }
+    a:hover {
+      text-decoration: underline;
+    }
 
-        .intro {
-            text-align: center;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-in;
-        }
+    h1, h2, h3 {
+      font-weight: bold;
+      text-align: center;
+      color: #e0e0e0;
+    }
 
-        .intro h1 {
-            font-size: 3rem;
-            background: linear-gradient(90deg, var(--accent), #ff4d94);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.5rem;
-            text-shadow: 0 0 10px var(--glow);
-        }
+    body.light-mode h1,
+    body.light-mode h2,
+    body.light-mode h3 {
+      color: #333;
+    }
 
-        .intro p {
-            max-width: 600px;
-            margin: 0.5rem auto;
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
+    .theme-toggle-container {
+      margin: 1rem 0;
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+    }
 
-        .form-wrapper {
-            width: 100%;
-            max-width: 720px;
-            margin-bottom: 2.5rem;
-            animation: slideUp 0.8s ease-out;
-        }
+    .theme-toggle {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background: #2a2a2a;
+      color: #d0d0d0;
+      cursor: pointer;
+    }
 
-        iframe {
-            width: 100%;
-            height: 2454px;
-            border: none;
-            display: block;
-        }
+    body.light-mode .theme-toggle {
+      background: #fff;
+      border-color: #ccc;
+      color: #333;
+    }
 
-        .support-container {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            width: 100%;
-            max-width: 600px;
-            text-align: center;
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
-            animation: slideUp 1s ease-out;
-        }
+    .theme-toggle:hover {
+      background: #3a3a3a;
+    }
 
-        .support-container h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.2rem;
-            color: var(--accent);
-        }
+    body.light-mode .theme-toggle:hover {
+      background: #f5f5f5;
+    }
 
-        .support-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-            justify-content: center;
-        }
+    .main {
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+    }
 
-        .support-button {
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
-            border-radius: 10px;
-            padding: 0.8rem;
-            color: var(--text);
-            font-size: 0.95rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
+    .intro {
+      margin-bottom: 1rem;
+    }
 
-        .support-button:hover, .support-button:focus {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), 0 0 15px var(--glow);
-            outline: none;
-        }
+    .intro p {
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
 
-        .support-button.youtube { background: var(--color-youtube); }
-        .support-button.twitch { background: var(--color-twitch); }
-        .support-button.ogvk { background: var(--color-ogvk); }
-        .support-button.ggqp { background: var(--color-ggqp); }
-        .support-button.btc { background: var(--color-bitcoin); }
-        .support-button.eth { background: var(--color-ethereum); }
+    .streamer-select {
+      margin: 1rem 0;
+      position: relative;
+      width: 100%;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
-        .support-button img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
-        }
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #444;
+      border-radius: 4px;
+      background: #2a2a2a;
+      color: #d0d0d0;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      height: 2.5rem;
+      max-height: 15rem;
+    }
 
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--card-bg);
-            color: var(--text);
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            font-size: 0.9rem;
-            border: 1px solid var(--accent);
-        }
+    body.light-mode select {
+      background: #fff;
+      border-color: #ccc;
+      color: #333;
+    }
 
-        .toast.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
+    select:focus {
+      outline: none;
+      border-color: #4a90e2;
+    }
 
-        footer {
-            background: var(--primary-bg);
-            color: var(--text);
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 0.95rem;
-            width: 100%;
-            margin-top: auto;
-            border-top: 1px solid rgba(255, 0, 123, 0.2);
-        }
+    select option {
+      background: #2a2a2a;
+      color: #d0d0d0;
+    }
 
-        footer a {
-            color: var(--accent);
-            transition: color 0.3s ease;
-        }
+    body.light-mode select option {
+      background: #fff;
+      color: #333;
+    }
 
-        footer a:hover {
-            color: #ff4d94;
-            text-decoration: none;
-        }
+    .streamer-select::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #d0d0d0;
+      pointer-events: none;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    body.light-mode .streamer-select::after {
+      color: #333;
+    }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    select::-webkit-scrollbar {
+      width: 8px;
+    }
 
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
+    select::-webkit-scrollbar-track {
+      background: #2a2a2a;
+    }
 
-            .intro h1 {
-                font-size: 2rem;
-            }
+    body.light-mode select::-webkit-scrollbar-track {
+      background: #f0f0f0;
+    }
 
-            .intro p {
-                font-size: 1rem;
-            }
+    select::-webkit-scrollbar-thumb {
+      background: #4a90e2;
+      border-radius: 4px;
+    }
 
-            .form-wrapper {
-                max-width: 100%;
-            }
+    select::-webkit-scrollbar-thumb:hover {
+      background: #357abd;
+    }
 
-            iframe {
-                height: 2600px;
-            }
+    .streamer-content {
+      display: none;
+      margin-top: 1rem;
+    }
 
-            .support-container {
-                padding: 1rem;
-            }
+    .streamer-content.active {
+      display: block;
+    }
 
-            .support-grid {
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            }
+    .channel-info {
+      margin-bottom: 1rem;
+    }
 
-            .support-button {
-                padding: 0.6rem;
-                font-size: 0.85rem;
-            }
-        }
+    .channel-name {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
 
-        @media (max-width: 480px) {
-            .intro h1 {
-                font-size: 1.8rem;
-            }
+    .channel-schedule {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      color: #b0b0b0;
+    }
 
-            .support-button {
-                padding: 0.5rem;
-                font-size: 0.8rem;
-            }
+    body.light-mode .channel-schedule {
+      color: #666;
+    }
 
-            .support-grid {
-                gap: 0.8rem;
-            }
+    .stream-container {
+      margin-bottom: 1rem;
+    }
 
-            iframe {
-                height: 2700px;
-            }
-        }
-    </style>
+    .stream-status-button {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      max-width: 200px;
+    }
+
+    .stream-status-button.live {
+      background: #ff0000;
+    }
+
+    .stream-status-button.offline {
+      background: #6441a5;
+    }
+
+    .stream-timer {
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      color: #b0b0b0;
+    }
+
+    body.light-mode .stream-timer {
+      color: #666;
+    }
+
+    .social-container {
+      margin-top: 1rem;
+    }
+
+    .social-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+
+    .social-button {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .social-button:hover {
+      opacity: 0.9;
+    }
+
+    .social-button.discord { background: #5865f2; }
+    .social-button.youtube { background: #ff0000; }
+    .social-button.twitch { background: #6441a5; }
+    .social-button.tiktok { background: #000000; }
+    .social-button.instagram { background: #e1306c; }
+    .social-button.snapchat { background: #fffc00; color: #000; }
+    .social-button.reddit { background: #ff4500; }
+    .social-button.twitter { background: #1da1f2; }
+
+    .community-container {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #222;
+      border-radius: 8px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    body.light-mode .community-container {
+      background: #e0e0e0;
+    }
+
+    .community-container h2 {
+      margin-bottom: 1rem;
+    }
+
+    .community-discord-button {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      background: #5865f2;
+      color: #fff;
+      text-align: center;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .community-discord-button:hover {
+      background: #7289da;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      .theme-toggle-container {
+        margin: 0.5rem 0;
+      }
+
+      select {
+        font-size: 0.9rem;
+      }
+
+      .channel-name {
+        font-size: 1.1rem;
+      }
+
+      .channel-schedule {
+        font-size: 0.85rem;
+      }
+
+      .social-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+
+      .stream-status-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <main class="main">
-        <div class="intro">
-            <h1>viewerdirectory</h1>
-            <p>Join our electrifying community by submitting your details below and vibe with us on socials!</p>
+  <main class="main">
+    <div class="theme-toggle-container">
+      <button class="theme-toggle" id="theme-toggle">Switch to Light Mode</button>
+    </div>
+    <div class="intro">
+      <h2>viewerdirectory.com Live 24/7🚨</h2>
+      <h3>drop menu👇</h3>
+    </div>
+
+    <div class="streamer-select">
+      <select id="streamer-dropdown">
+        <option value="LIVE">LIVE NOW!</option>
+        <option value="xwlasxd">xwlasxd</option>
+        <option value="HeavySamLifts">HeavySamLifts</option>
+        <option value="ShadyPeterLive">ShadyPeterLive</option>
+        <option value="ramkrishanghoil">ramkrishanghoil</option>
+        <option value="zxckjsdv">zxckjsdv</option>
+        <option value="brbcompiling">brbcompiling</option>
+        <option value="TrevorMarksman">TrevorMarksman</option>
+        <option value="ValentineCoolio">ValentineCoolio</option>
+        <option value="LegacyMartian">LegacyMartian</option>
+        <option value="MovieByMacaffe">MovieByMacaffe</option>
+        <option value="BizaroPeter">BizaroPeter</option>
+        <option value="GynaWENS">GynaWENS</option>
+        <option value="xvbrznem">xvbrznem</option>
+      </select>
+    </div>
+
+    <template id="streamer-template">
+      <div class="streamer-content" id="">
+        <div class="channel-info">
+          <h2 class="channel-name"><a href=""></a></h2>
+          <div class="channel-schedule"></div>
         </div>
-        <div class="form-wrapper">
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe6p0rcaHT7eilnW_aYB-miZqd3hvIZNV4UIanyFnxE6cuZEw/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+        <div class="stream-container">
+          <a class="stream-status-button"></a>
+          <div class="stream-timer"></div>
         </div>
-        <div class="support-container">
-            <h2>Support & Connect</h2>
-            <div class="support-grid">
-                <a class="support-button youtube" href="https://youtube.com/@ogvkorg" aria-label="Follow on YouTube">
-                    <i class="fab fa-youtube"></i> YouTube
-                </a>
-                <a class="support-button twitch" href="https://twitch.tv/ogvkorg" aria-label="Follow on Twitch">
-                    <i class="fab fa-twitch"></i> Twitch
-                </a>
-                <a class="support-button ogvk" href="https://ogvk.org" aria-label="Visit OGVK">
-                    <i class="fas fa-globe"></i> OGVK
-                </a>
-                <a class="support-button ggqp" href="https://ggqp.org" aria-label="Visit GGQP">
-                    <i class="fas fa-globe"></i> GGQP
-                </a>
-                <button class="support-button btc" data-copy="bc1qa0ynpvwhnjehfp06cerlvrrfdqvaeeyrekaa9d">
-                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="Bitcoin Logo"> Copy BTC
-                </button>
-                <button class="support-button eth" data-copy="0xF84E4324F59587dc220597429E153D2f244B2548">
-                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="Ethereum Logo"> Copy ETH
-                </button>
-            </div>
+        <div class="social-container">
+          <div class="social-grid"></div>
         </div>
-    </main>
-    <footer>
-        <p>© 2025 viewerdirectory.com All rights reserved. | <a href="mailto:support@viwerdirectory.com">Contact Us</a></p>
-    </footer>
-    <script>
-        function showToast(message) {
-            let toast = document.querySelector('.toast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.className = 'toast';
-                document.body.appendChild(toast);
-            }
-            toast.textContent = message;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 3000);
+      </div>
+    </template>
+
+    <div class="community-container">
+      <a class="community-discord-button" href="https://discord.gg/ymwPhfz2">Join viewerdirectory.com Community Discord</a>
+    </div>
+  </main>
+
+  <script>
+    const streamers = [
+      {
+        id: 'xwlasxd', name: 'xwlasxd', url: 'https://twitch.tv/xwlasxd', discord: 'https://discord.gg/abrtMaCsyu',
+        social: {
+          discord: { webUrl: 'https://discord.gg/abrtMaCsyu', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@xwlasxd', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/xwlasxd', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@xwlasxd', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/xwlasxd', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/xwlasxd', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/xwlasxd', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/xwlasxd', icon: 'fab fa-twitter' }
+        },
+        startHour: 0, endHour: 3, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'HeavySamLifts', name: 'HeavySamLifts', url: 'https://twitch.tv/HeavySamLifts', discord: 'https://discord.gg/36U3wCXXfe',
+        social: {
+          discord: { webUrl: 'https://discord.gg/36U3wCXXfe', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@HeavySamLifts', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/HeavySamLifts', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@HeavySamLifts', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/HeavySamLifts', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/HeavySamLifts', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/HeavySamLifts', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/HeavySamLifts', icon: 'fab fa-twitter' }
+        },
+        startHour: 3, endHour: 6, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'ShadyPeterLive', name: 'ShadyPeterLive', url: 'https://twitch.tv/ShadyPeterLive', discord: 'https://discord.gg/QkTWZrT6',
+        social: {
+          discord: { webUrl: 'https://discord.gg/QkTWZrT6', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@ShadyPeterLive', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/ShadyPeterLive', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@ShadyPeterLive', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/ShadyPeterLive', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/ShadyPeterLive', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/ShadyPeterLive', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/ShadyPeterLive', icon: 'fab fa-twitter' }
+        },
+        startHour: 6, endHour: 9, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'ramkrishanghoil', name: 'ramkrishanghoil', url: 'https://twitch.tv/ramkrishanghoil', discord: 'https://discord.gg/vTd4bxJX',
+        social: {
+          discord: { webUrl: 'https://discord.gg/vTd4bxJX', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@ramkrishanghoil', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/ramkrishanghoil', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@ramkrishanghoil', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/ramkrishanghoil', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/ramkrishanghoil', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/ramkrishanghoil', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/ramkrishanghoil', icon: 'fab fa-twitter' }
+        },
+        startHour: 9, endHour: 12, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'zxckjsdv', name: 'zxckjsdv', url: 'https://twitch.tv/zxckjsdv', discord: 'https://discord.gg/mTT2SBmq',
+        social: {
+          discord: { webUrl: 'https://discord.gg/mTT2SBmq', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@zxckjsdv', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/zxckjsdv', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@zxckjsdv', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/zxckjsdv', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/zxckjsdv', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/zxckjsdv', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/zxckjsdv', icon: 'fab fa-twitter' }
+        },
+        startHour: 12, endHour: 15, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'brbcompiling', name: 'brbcompiling', url: 'https://twitch.tv/brbcompiling', discord: 'https://discord.gg/gUdRv6AU',
+        social: {
+          discord: { webUrl: 'https://discord.gg/gUdRv6AU', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@brbcompiling', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/brbcompiling', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@brbcompiling', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/brbcompiling', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/brbcompiling', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/brbcompiling', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/brbcompiling', icon: 'fab fa-twitter' }
+        },
+        startHour: 15, endHour: 17, streamingDays: [1, 3, 5, 0],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'TrevorMarksman', name: 'TrevorMarksman', url: 'https://twitch.tv/TrevorMarksman', discord: 'https://discord.gg/ZSKWZK2U',
+        social: {
+          discord: { webUrl: 'https://discord.gg/ZSKWZK2U', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@TrevorMarksman', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/TrevorMarksman', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@TrevorMarksman', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/TrevorMarksman', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/TrevorMarksman', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/TrevorMarksman', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/TrevorMarksman', icon: 'fab fa-twitter' }
+        },
+        startHour: 0, endHour: 3, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'ValentineCoolio', name: 'ValentineCoolio', url: 'https://twitch.tv/ValentineCoolio', discord: 'https://discord.gg/apgxTaBj',
+        social: {
+          discord: { webUrl: 'https://discord.gg/apgxTaBj', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@ValentineCoolio', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/ValentineCoolio', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@ValentineCoolio', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/ValentineCoolio', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/ValentineCoolio', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/ValentineCoolio', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/ValentineCoolio', icon: 'fab fa-twitter' }
+        },
+        startHour: 3, endHour: 6, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'LegacyMartian', name: 'LegacyMartian', url: 'https://twitch.tv/LegacyMartian', discord: 'https://discord.gg/4MxYRbyZ',
+        social: {
+          discord: { webUrl: 'https://discord.gg/4MxYRbyZ', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@LegacyMartian', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/LegacyMartian', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@LegacyMartian', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/LegacyMartian', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/LegacyMartian', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/LegacyMartian', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/LegacyMartian', icon: 'fab fa-twitter' }
+        },
+        startHour: 6, endHour: 9, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'MovieByMacaffe', name: 'MovieByMacaffe', url: 'https://twitch.tv/MovieByMacaffe', discord: 'https://discord.gg/mDddbJ8J',
+        social: {
+          discord: { webUrl: 'https://discord.gg/mDddbJ8J', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@MovieByMacaffe', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/MovieByMacaffe', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@MovieByMacaffe', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/MovieByMacaffe', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/MovieByMacaffe', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/MovieByMacaffe', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/MovieByMacaffe', icon: 'fab fa-twitter' }
+        },
+        startHour: 9, endHour: 12, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'BizaroPeter', name: 'BizaroPeter', url: 'https://twitch.tv/BizaroPeter', discord: 'https://discord.gg/tPWpx28U',
+        social: {
+          discord: { webUrl: 'https://discord.gg/tPWpx28U', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@BizaroPeter', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/BizaroPeter', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@BizaroPeter', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/BizaroPeter', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/BizaroPeter', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/BizaroPeter', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/BizaroPeter', icon: 'fab fa-twitter' }
+        },
+        startHour: 12, endHour: 15, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'GynaWENS', name: 'GynaWENS', url: 'https://twitch.tv/GynaWENS', discord: 'https://discord.gg/cF9aRQ8B',
+        social: {
+          discord: { webUrl: 'https://discord.gg/cF9aRQ8B', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@GynaWENS', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/GynaWENS', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@GynaWENS', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/GynaWENS', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/GynaWENS', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/GynaWENS', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/GynaWENS', icon: 'fab fa-twitter' }
+        },
+        startHour: 15, endHour: 17, streamingDays: [2, 4, 6],
+        followers: 200000, subscribers: 20000
+      },
+      {
+        id: 'xvbrznem', name: 'xvbrznem', url: 'https://twitch.tv/xvbrznem', discord: 'https://discord.gg/vV623V4F',
+        social: {
+          discord: { webUrl: 'https://discord.gg/vV623V4F', icon: 'fab fa-discord' },
+          youtube: { webUrl: 'https://youtube.com/@xvbrznem', icon: 'fab fa-youtube' },
+          twitch: { webUrl: 'https://twitch.tv/xvbrznem', icon: 'fab fa-twitch' },
+          tiktok: { webUrl: 'https://tiktok.com/@xvbrznem', icon: 'fab fa-tiktok' },
+          instagram: { webUrl: 'https://instagram.com/xvbrznem', icon: 'fab fa-instagram' },
+          snapchat: { webUrl: 'https://snapchat.com/add/xvbrznem', icon: 'fab fa-snapchat' },
+          reddit: { webUrl: 'https://reddit.com/r/xvbrznem', icon: 'fab fa-reddit' },
+          twitter: { webUrl: 'https://twitter.com/xvbrznem', icon: 'fab fa-twitter' }
+        },
+        startHour: 18, endHour: 24, streamingDays: [1, 2, 3, 4, 5, 6, 0],
+        followers: 200000, subscribers: 20000
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const dropdown = document.getElementById('streamer-dropdown');
+      const main = document.querySelector('.main');
+      const template = document.getElementById('streamer-template');
+      const themeToggle = document.getElementById('theme-toggle');
+      let isLiveNowSelected = false;
+
+      // Theme toggle functionality
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.body.classList.toggle('light-mode', savedTheme === 'light');
+      themeToggle.textContent = savedTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        const newTheme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+        themeToggle.textContent = newTheme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+      });
+
+      function getNzTime(date) {
+        return new Date(date.toLocaleString("en-US", { timeZone: "Pacific/Auckland" }));
+      }
+
+      function isNzdt() {
+        const date = new Date();
+        const jan = new Date(date.getFullYear(), 0, 1);
+        const jul = new Date(date.getFullYear(), 6, 1);
+        const stdOffset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+        return date.getTimezoneOffset() < stdOffset;
+      }
+
+      function isStreamingDay(streamer) {
+        const nzTime = getNzTime(new Date());
+        return streamer.streamingDays.includes(nzTime.getDay());
+      }
+
+      function getCurrentStreamer() {
+        const nzTime = getNzTime(new Date());
+        const currentHour = nzTime.getHours();
+        return streamers.find(s => isStreamingDay(s) && currentHour >= s.startHour && currentHour < s.endHour) || null;
+      }
+
+      function getNextStreamer(streamer) {
+        const nzTime = getNzTime(new Date());
+        const currentHour = nzTime.getHours();
+        const currentDay = nzTime.getDay();
+        let nextStreamer = streamers.find(s => 
+          isStreamingDay(s) && s.startHour > currentHour && s.startHour > (streamer?.startHour || -1)
+        );
+        if (!nextStreamer) {
+          const nextDay = (currentDay + 1) % 7;
+          nextStreamer = streamers.find(s => s.streamingDays.includes(nextDay)) || streamers[0];
+        }
+        return nextStreamer;
+      }
+
+      function formatTime(hour) {
+        const period = hour >= 12 ? 'PM' : 'AM';
+        const adjustedHour = hour % 12 || 12;
+        return `${adjustedHour}:00 ${period}`;
+      }
+
+      function updateStreamerContent(content, streamer, isLive) {
+        const nzTime = getNzTime(new Date());
+        const currentHour = nzTime.getHours();
+        const timeZone = isNzdt() ? 'NZDT' : 'NZST';
+
+        const nameLink = content.querySelector('.channel-name a');
+        nameLink.href = streamer.url;
+        nameLink.textContent = streamer.name;
+
+        const schedule = content.querySelector('.channel-schedule');
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const streamingDays = streamer.streamingDays.map(day => days[day]).join(', ');
+        schedule.textContent = `Streams ${streamingDays} from ${formatTime(streamer.startHour)} to ${formatTime(streamer.endHour)} ${timeZone}`;
+
+        const statusButton = content.querySelector('.stream-status-button');
+        statusButton.textContent = isLive ? 'Join Live on Twitch!' : 'Watch VODs';
+        statusButton.className = `stream-status-button ${isLive ? 'live' : 'offline'}`;
+        statusButton.href = isLive ? streamer.url : `${streamer.url}/videos`;
+
+        let countdownText = '';
+        if (isLive) {
+          const endTime = new Date(nzTime);
+          endTime.setHours(streamer.endHour, 0, 0, 0);
+          if (endTime < nzTime) endTime.setDate(endTime.getDate() + 1);
+          const timeLeft = endTime - nzTime;
+          const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+          const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          countdownText = `Stream ends in ${hours}h ${minutes}m`;
+        } else {
+          let nextStreamTime = new Date(nzTime);
+          if (!isStreamingDay(streamer)) {
+            let nextDay = nzTime.getDay();
+            let daysUntilNext = 1;
+            while (!streamer.streamingDays.includes((nextDay + daysUntilNext) % 7)) daysUntilNext++;
+            nextStreamTime.setDate(nzTime.getDate() + daysUntilNext);
+            nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+          } else if (currentHour < streamer.startHour) {
+            nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+          } else {
+            let nextDay = nzTime.getDay();
+            let daysUntilNext = 1;
+            while (!streamer.streamingDays.includes((nextDay + daysUntilNext) % 7)) daysUntilNext++;
+            nextStreamTime.setDate(nzTime.getDate() + daysUntilNext);
+            nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+          }
+          const timeDiff = nextStreamTime - nzTime;
+          const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+          const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+          const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+          countdownText = timeDiff <= 0 ? `${streamer.name} should be live soon!` :
+            `Next stream in ${hours}h ${minutes}m ${seconds}s`;
         }
 
-        async function copyToClipboard(text) {
-            try {
-                await navigator.clipboard.writeText(text);
-                showToast(`Copied: ${text}`);
-            } catch (e) {
-                showToast('Failed to copy. Try again.');
-                console.error('Copy failed:', e);
-            }
-        }
+        content.querySelector('.stream-timer').textContent = countdownText;
 
-        document.querySelectorAll('.support-button.btc, .support-button.eth').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.preventDefault();
-                copyToClipboard(button.dataset.copy);
-            });
+        const socialGrid = content.querySelector('.social-grid');
+        socialGrid.innerHTML = '';
+        Object.keys(streamer.social).forEach(platform => {
+          const { webUrl, icon } = streamer.social[platform];
+          const socialButton = document.createElement('a');
+          socialButton.className = `social-button ${platform}`;
+          socialButton.href = webUrl;
+          socialButton.innerHTML = `<i class="${icon}"></i> ${platform === 'discord' ? `Solo ${streamer.name} Discord` : platform.charAt(0).toUpperCase() + platform.slice(1)}`;
+          socialGrid.appendChild(socialButton);
         });
-    </script>
+      }
+
+      function selectStreamer(streamerId) {
+        document.querySelectorAll('.streamer-content').forEach(c => c.classList.remove('active'));
+        document.getElementById(streamerId).classList.add('active');
+        dropdown.value = streamerId;
+        try {
+          window.history.replaceState(null, null, `/@${encodeURIComponent(streamerId)}`);
+        } catch (e) {
+          console.warn('Unable to update URL:', e.message);
+        }
+      }
+
+      async function loadStreamerFromPath() {
+        const path = window.location.pathname;
+        const match = path.match(/^\/@([^/]+)/);
+        if (match) {
+          const username = decodeURIComponent(match[1]).toLowerCase();
+          const selectedStreamer = streamers.find(s => s.id.toLowerCase() === username);
+          if (selectedStreamer) {
+            selectStreamer(selectedStreamer.id);
+            return selectedStreamer;
+          }
+        }
+        return null;
+      }
+
+      streamers.forEach(streamer => {
+        const clone = template.content.cloneNode(true);
+        const content = clone.querySelector('.streamer-content');
+        content.id = streamer.id;
+        const isLive = isStreamingDay(streamer) && getNzTime(new Date()).getHours() >= streamer.startHour && getNzTime(new Date()).getHours() < streamer.endHour;
+        updateStreamerContent(content, streamer, isLive);
+        main.insertBefore(clone, document.querySelector('.community-container'));
+      });
+
+      const liveClone = template.content.cloneNode(true);
+      const liveContent = liveClone.querySelector('.streamer-content');
+      liveContent.id = 'LIVE';
+      liveContent.classList.add('active');
+      const currentStreamer = getCurrentStreamer();
+      if (currentStreamer) {
+        updateStreamerContent(liveContent, currentStreamer, true);
+      } else {
+        const nextStreamer = getNextStreamer(null);
+        updateStreamerContent(liveContent, nextStreamer, false);
+      }
+      main.insertBefore(liveClone, document.querySelector('.community-container'));
+
+      dropdown.addEventListener('change', () => {
+        isLiveNowSelected = dropdown.value === 'LIVE';
+        selectStreamer(dropdown.value);
+      });
+
+      async function init() {
+        let selectedStreamer = await loadStreamerFromPath();
+        if (!selectedStreamer) {
+          selectedStreamer = getCurrentStreamer() || streamers[0];
+          isLiveNowSelected = !!getCurrentStreamer();
+          selectStreamer(isLiveNowSelected ? 'LIVE' : selectedStreamer.id);
+        }
+      }
+
+      init();
+
+      window.addEventListener('popstate', async () => {
+        const selectedStreamer = await loadStreamerFromPath();
+        if (selectedStreamer) {
+          isLiveNowSelected = false;
+          selectStreamer(selectedStreamer.id);
+        } else {
+          const fallbackStreamer = getCurrentStreamer() || streamers[0];
+          isLiveNowSelected = !!getCurrentStreamer();
+          selectStreamer(isLiveNowSelected ? 'LIVE' : fallbackStreamer.id);
+        }
+      });
+
+      setInterval(() => {
+        const nzTime = getNzTime(new Date());
+        const currentHour = nzTime.getHours();
+        const timeZone = isNzdt() ? 'NZDT' : 'NZST';
+
+        streamers.forEach(streamer => {
+          const content = document.getElementById(streamer.id);
+          if (!content) return;
+
+          const isLive = isStreamingDay(streamer) && currentHour >= streamer.startHour && currentHour < streamer.endHour;
+          const statusButton = content.querySelector('.stream-status-button');
+          statusButton.textContent = isLive ? 'Join Live on Twitch!' : 'Watch VODs';
+          statusButton.className = `stream-status-button ${isLive ? 'live' : 'offline'}`;
+          statusButton.href = isLive ? streamer.url : `${streamer.url}/videos`;
+
+          let countdownText = '';
+          if (isLive) {
+            const endTime = new Date(nzTime);
+            endTime.setHours(streamer.endHour, 0, 0, 0);
+            if (endTime < nzTime) endTime.setDate(endTime.getDate() + 1);
+            const timeLeft = endTime - nzTime;
+            const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            countdownText = `Stream ends in ${hours}h ${minutes}m`;
+          } else {
+            let nextStreamTime = new Date(nzTime);
+            if (!isStreamingDay(streamer)) {
+              let nextDay = nzTime.getDay();
+              let daysUntilNext = 1;
+              while (!streamer.streamingDays.includes((nextDay + daysUntilNext) % 7)) daysUntilNext++;
+              nextStreamTime.setDate(nzTime.getDate() + daysUntilNext);
+              nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+            } else if (currentHour < streamer.startHour) {
+              nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+            } else {
+              let nextDay = nzTime.getDay();
+              let daysUntilNext = 1;
+              while (!streamer.streamingDays.includes((nextDay + daysUntilNext) % 7)) daysUntilNext++;
+              nextStreamTime.setDate(nzTime.getDate() + daysUntilNext);
+              nextStreamTime.setHours(streamer.startHour, 0, 0, 0);
+            }
+            const timeDiff = nextStreamTime - nzTime;
+            const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            countdownText = timeDiff <= 0 ? `${streamer.name} should be live soon!` :
+              `Next stream in ${hours}h ${minutes}m ${seconds}s`;
+          }
+
+          content.querySelector('.stream-timer').textContent = countdownText;
+
+          const schedule = content.querySelector('.channel-schedule');
+          const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+          const streamingDays = streamer.streamingDays.map(day => days[day]).join(', ');
+          schedule.textContent = `Streams ${streamingDays} from ${formatTime(streamer.startHour)} to ${formatTime(streamer.endHour)} ${timeZone}`;
+        });
+
+        const liveContent = document.getElementById('LIVE');
+        if (liveContent) {
+          const currentStreamer = getCurrentStreamer();
+          if (currentStreamer) {
+            updateStreamerContent(liveContent, currentStreamer, true);
+          } else {
+            const nextStreamer = getNextStreamer(null);
+            updateStreamerContent(liveContent, nextStreamer, false);
+          }
+          if (isLiveNowSelected) {
+            selectStreamer('LIVE');
+          }
+        }
+      }, 1000);
+    });
+  </script>
 </body>
 </html>
