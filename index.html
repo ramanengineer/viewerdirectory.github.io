@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>viewerdirectory.com - Streamer Social Media Links</title>
-  <meta name="description" content="All social media links for viewerdirectory.com streamers, organized by platform.">
+  <meta name="description" content="Explore social media links for viewerdirectory.com streamers, neatly organized by platform.">
   <meta name="keywords" content="OGVK, streamers, social media, Twitch, YouTube, Discord, TikTok, Instagram, Snapchat, Reddit, Twitter, Kick, Facebook, Telegram, Bluesky, Threads, Trovo">
   <meta name="author" content="viewerdirectory.com">
   <meta name="robots" content="index, follow">
   <meta property="og:title" content="viewerdirectory.com - Streamer Social Media Links">
-  <meta property="og:description" content="Find all social media links for viewerdirectory.com streamers, grouped by platform.">
+  <meta property="og:description" content="Find all social media links for viewerdirectory.com streamers, grouped by platform for easy access.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://viewerdirectory.com/social-links">
   <meta property="og:site_name" content="viewerdirectory.com">
@@ -31,12 +31,12 @@
     body {
       background: #1a1a1a;
       color: #d0d0d0;
-      font-family: Arial, sans-serif;
-      line-height: 1.5;
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1rem;
+      padding: 1.5rem;
     }
 
     a {
@@ -48,16 +48,28 @@
       text-decoration: underline;
     }
 
-    h1, h2 {
+    h1 {
+      font-size: 2rem;
       font-weight: bold;
       text-align: center;
       color: #e0e0e0;
-      margin: 1rem 0;
+      margin-bottom: 1.5rem;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #e0e0e0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0;
     }
 
     .main {
       width: 100%;
-      max-width: 800px;
+      max-width: 900px;
       text-align: center;
     }
 
@@ -66,50 +78,72 @@
       padding: 1rem;
       background: #222;
       border-radius: 8px;
+      transition: all 0.3s ease;
     }
 
-    .platform-section h2 {
-      margin-bottom: 0.5rem;
+    .platform-section.collapsed .link-list,
+    .platform-section.collapsed .open-all-button {
+      display: none;
+    }
+
+    .platform-section:not(.collapsed) {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
 
     .open-all-button {
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.5rem;
       font-size: 0.9rem;
-      border: 1px solid #444;
+      border: none;
       border-radius: 4px;
-      background: #2a2a2a;
-      color: #d0d0d0;
+      background: #4a90e2;
+      color: #fff;
       cursor: pointer;
-      margin-bottom: 1rem;
+      margin: 0.5rem 0;
+      transition: background 0.2s;
     }
 
     .open-all-button:hover {
-      background: #3a3a3a;
+      background: #357abd;
+    }
+
+    .open-all-button:focus {
+      outline: 2px solid #4a90e2;
+      outline-offset: 2px;
     }
 
     .link-list {
       list-style: none;
       padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.5rem;
     }
 
     .link-list li {
-      margin: 0.5rem 0;
+      margin: 0.25rem 0;
     }
 
     .social-button {
-      padding: 0.4rem 0.8rem;
+      padding: 0.5rem 1rem;
       font-size: 0.85rem;
       border-radius: 4px;
       color: #fff;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 0.4rem;
-      min-width: 100px;
+      gap: 0.5rem;
       justify-content: center;
+      width: 100%;
+      transition: transform 0.2s, opacity 0.2s;
     }
 
     .social-button:hover {
+      transform: translateY(-2px);
       opacity: 0.9;
+    }
+
+    .social-button:focus {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
     }
 
     .social-button.discord { background: #5865f2; }
@@ -127,23 +161,34 @@
     .social-button.threads { background: #000000; }
     .social-button.trovo { background: #00ff7f; }
 
-    @media (max-width: 480px) {
+    @media (max-width: 600px) {
       body {
-        padding: 0.5rem;
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1rem;
       }
 
       .platform-section {
-        padding: 0.5rem;
+        padding: 0.75rem;
+      }
+
+      .link-list {
+        grid-template-columns: 1fr;
       }
 
       .social-button {
-        padding: 0.3rem 0.6rem;
+        padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
-        min-width: 80px;
       }
 
       .open-all-button {
-        padding: 0.4rem 0.8rem;
+        padding: 0.4rem 1rem;
         font-size: 0.85rem;
       }
     }
@@ -153,288 +198,289 @@
   <main class="main">
     <h1>viewerdirectory.com Streamer Social Media Links</h1>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-discord"></i> Discord</h2>
-      <button class="open-all-button" data-platform="discord">Open All Discord Links</button>
+    <div class="platform-section" id="discord-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-discord"></i> Discord</h2>
+      <button class="open-all-button" data-platform="discord" aria-label="Open all Discord links in new tabs">Open All</button>
       <ul class="link-list" id="discord-links">
-        <li><a class="social-button discord" href="https://joindiscord.me/@xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button discord" href="https://joindiscord.me/@xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@BizaroPeter" target="_blank" aria-label="BizaroPeter on Discord">BizaroPeter</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@brbcompiling" target="_blank" aria-label="brbcompiling on Discord">brbcompiling</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@GynaWENS" target="_blank" aria-label="GynaWENS on Discord">GynaWENS</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Discord">HeavySamLifts</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@LegacyMartian" target="_blank" aria-label="LegacyMartian on Discord">LegacyMartian</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Discord">MovieByMacaffe</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Discord">ramkrishanghoil</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Discord">ShadyPeterLive</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Discord">TrevorMarksman</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Discord">ValentineCoolio</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@xvbrznem" target="_blank" aria-label="xvbrznem on Discord">xvbrznem</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@xwlasxd" target="_blank" aria-label="xwlasxd on Discord">xwlasxd</a></li>
+        <li><a class="social-button discord" href="https://joindiscord.me/@zxckjsdv" target="_blank" aria-label="zxckjsdv on Discord">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-youtube"></i> YouTube</h2>
-      <button class="open-all-button" data-platform="youtube">Open All YouTube Links</button>
+    <div class="platform-section" id="youtube-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-youtube"></i> YouTube</h2>
+      <button class="open-all-button" data-platform="youtube" aria-label="Open all YouTube links in new tabs">Open All</button>
       <ul class="link-list" id="youtube-links">
-        <li><a class="social-button youtube" href="https://youtube.com/@xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button youtube" href="https://youtube.com/@xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@BizaroPeter" target="_blank" aria-label="BizaroPeter on YouTube">BizaroPeter</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@brbcompiling" target="_blank" aria-label="brbcompiling on YouTube">brbcompiling</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@GynaWENS" target="_blank" aria-label="GynaWENS on YouTube">GynaWENS</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@HeavySamLifts" target="_blank" aria-label="HeavySamLifts on YouTube">HeavySamLifts</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@LegacyMartian" target="_blank" aria-label="LegacyMartian on YouTube">LegacyMartian</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on YouTube">MovieByMacaffe</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on YouTube">ramkrishanghoil</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on YouTube">ShadyPeterLive</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@TrevorMarksman" target="_blank" aria-label="TrevorMarksman on YouTube">TrevorMarksman</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@ValentineCoolio" target="_blank" aria-label="ValentineCoolio on YouTube">ValentineCoolio</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@xvbrznem" target="_blank" aria-label="xvbrznem on YouTube">xvbrznem</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@xwlasxd" target="_blank" aria-label="xwlasxd on YouTube">xwlasxd</a></li>
+        <li><a class="social-button youtube" href="https://youtube.com/@zxckjsdv" target="_blank" aria-label="zxckjsdv on YouTube">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-twitch"></i> Twitch</h2>
-      <button class="open-all-button" data-platform="twitch">Open All Twitch Links</button>
+    <div class="platform-section" id="twitch-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-twitch"></i> Twitch</h2>
+      <button class="open-all-button" data-platform="twitch" aria-label="Open all Twitch links in new tabs">Open All</button>
       <ul class="link-list" id="twitch-links">
-        <li><a class="social-button twitch" href="https://twitch.tv/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button twitch" href="https://twitch.tv/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/BizaroPeter" target="_blank" aria-label="BizaroPeter on Twitch">BizaroPeter</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/brbcompiling" target="_blank" aria-label="brbcompiling on Twitch">brbcompiling</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/GynaWENS" target="_blank" aria-label="GynaWENS on Twitch">GynaWENS</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Twitch">HeavySamLifts</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/LegacyMartian" target="_blank" aria-label="LegacyMartian on Twitch">LegacyMartian</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Twitch">MovieByMacaffe</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Twitch">ramkrishanghoil</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Twitch">ShadyPeterLive</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Twitch">TrevorMarksman</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Twitch">ValentineCoolio</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/xvbrznem" target="_blank" aria-label="xvbrznem on Twitch">xvbrznem</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/xwlasxd" target="_blank" aria-label="xwlasxd on Twitch">xwlasxd</a></li>
+        <li><a class="social-button twitch" href="https://twitch.tv/zxckjsdv" target="_blank" aria-label="zxckjsdv on Twitch">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-tiktok"></i> TikTok</h2>
-      <button class="open-all-button" data-platform="tiktok">Open All TikTok Links</button>
+    <div class="platform-section" id="tiktok-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-tiktok"></i> TikTok</h2>
+      <button class="open-all-button" data-platform="tiktok" aria-label="Open all TikTok links in new tabs">Open All</button>
       <ul class="link-list" id="tiktok-links">
-        <li><a class="social-button tiktok" href="https://tiktok.com/@xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button tiktok" href="https://tiktok.com/@xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@BizaroPeter" target="_blank" aria-label="BizaroPeter on TikTok">BizaroPeter</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@brbcompiling" target="_blank" aria-label="brbcompiling on TikTok">brbcompiling</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@GynaWENS" target="_blank" aria-label="GynaWENS on TikTok">GynaWENS</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@HeavySamLifts" target="_blank" aria-label="HeavySamLifts on TikTok">HeavySamLifts</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@LegacyMartian" target="_blank" aria-label="LegacyMartian on TikTok">LegacyMartian</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on TikTok">MovieByMacaffe</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on TikTok">ramkrishanghoil</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on TikTok">ShadyPeterLive</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@TrevorMarksman" target="_blank" aria-label="TrevorMarksman on TikTok">TrevorMarksman</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@ValentineCoolio" target="_blank" aria-label="ValentineCoolio on TikTok">ValentineCoolio</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@xvbrznem" target="_blank" aria-label="xvbrznem on TikTok">xvbrznem</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@xwlasxd" target="_blank" aria-label="xwlasxd on TikTok">xwlasxd</a></li>
+        <li><a class="social-button tiktok" href="https://tiktok.com/@zxckjsdv" target="_blank" aria-label="zxckjsdv on TikTok">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-instagram"></i> Instagram</h2>
-      <button class="open-all-button" data-platform="instagram">Open All Instagram Links</button>
+    <div class="platform-section" id="instagram-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-instagram"></i> Instagram</h2>
+      <button class="open-all-button" data-platform="instagram" aria-label="Open all Instagram links in new tabs">Open All</button>
       <ul class="link-list" id="instagram-links">
-        <li><a class="social-button instagram" href="https://instagram.com/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button instagram" href="https://instagram.com/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/BizaroPeter" target="_blank" aria-label="BizaroPeter on Instagram">BizaroPeter</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/brbcompiling" target="_blank" aria-label="brbcompiling on Instagram">brbcompiling</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/GynaWENS" target="_blank" aria-label="GynaWENS on Instagram">GynaWENS</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Instagram">HeavySamLifts</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/LegacyMartian" target="_blank" aria-label="LegacyMartian on Instagram">LegacyMartian</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Instagram">MovieByMacaffe</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Instagram">ramkrishanghoil</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Instagram">ShadyPeterLive</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Instagram">TrevorMarksman</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Instagram">ValentineCoolio</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/xvbrznem" target="_blank" aria-label="xvbrznem on Instagram">xvbrznem</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/xwlasxd" target="_blank" aria-label="xwlasxd on Instagram">xwlasxd</a></li>
+        <li><a class="social-button instagram" href="https://instagram.com/zxckjsdv" target="_blank" aria-label="zxckjsdv on Instagram">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-snapchat"></i> Snapchat</h2>
-      <button class="open-all-button" data-platform="snapchat">Open All Snapchat Links</button>
+    <div class="platform-section" id="snapchat-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-snapchat"></i> Snapchat</h2>
+      <button class="open-all-button" data-platform="snapchat" aria-label="Open all Snapchat links in new tabs">Open All</button>
       <ul class="link-list" id="snapchat-links">
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button snapchat" href="https://snapchat.com/add/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/BizaroPeter" target="_blank" aria-label="BizaroPeter on Snapchat">BizaroPeter</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/brbcompiling" target="_blank" aria-label="brbcompiling on Snapchat">brbcompiling</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/GynaWENS" target="_blank" aria-label="GynaWENS on Snapchat">GynaWENS</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Snapchat">HeavySamLifts</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/LegacyMartian" target="_blank" aria-label="LegacyMartian on Snapchat">LegacyMartian</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Snapchat">MovieByMacaffe</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Snapchat">ramkrishanghoil</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Snapchat">ShadyPeterLive</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Snapchat">TrevorMarksman</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Snapchat">ValentineCoolio</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/xvbrznem" target="_blank" aria-label="xvbrznem on Snapchat">xvbrznem</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/xwlasxd" target="_blank" aria-label="xwlasxd on Snapchat">xwlasxd</a></li>
+        <li><a class="social-button snapchat" href="https://snapchat.com/add/zxckjsdv" target="_blank" aria-label="zxckjsdv on Snapchat">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-reddit"></i> Reddit</h2>
-      <button class="open-all-button" data-platform="reddit">Open All Reddit Links</button>
+    <div class="platform-section" id="reddit-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-reddit"></i> Reddit</h2>
+      <button class="open-all-button" data-platform="reddit" aria-label="Open all Reddit links in new tabs">Open All</button>
       <ul class="link-list" id="reddit-links">
-        <li><a class="social-button reddit" href="https://reddit.com/r/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button reddit" href="https://reddit.com/r/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/BizaroPeter" target="_blank" aria-label="BizaroPeter on Reddit">BizaroPeter</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/brbcompiling" target="_blank" aria-label="brbcompiling on Reddit">brbcompiling</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/GynaWENS" target="_blank" aria-label="GynaWENS on Reddit">GynaWENS</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Reddit">HeavySamLifts</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/LegacyMartian" target="_blank" aria-label="LegacyMartian on Reddit">LegacyMartian</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Reddit">MovieByMacaffe</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Reddit">ramkrishanghoil</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Reddit">ShadyPeterLive</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Reddit">TrevorMarksman</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Reddit">ValentineCoolio</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/xvbrznem" target="_blank" aria-label="xvbrznem on Reddit">xvbrznem</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/xwlasxd" target="_blank" aria-label="xwlasxd on Reddit">xwlasxd</a></li>
+        <li><a class="social-button reddit" href="https://reddit.com/r/zxckjsdv" target="_blank" aria-label="zxckjsdv on Reddit">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-twitter"></i> Twitter</h2>
-      <button class="open-all-button" data-platform="twitter">Open All Twitter Links</button>
+    <div class="platform-section" id="twitter-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-twitter"></i> Twitter</h2>
+      <button class="open-all-button" data-platform="twitter" aria-label="Open all Twitter links in new tabs">Open All</button>
       <ul class="link-list" id="twitter-links">
-        <li><a class="social-button twitter" href="https://twitter.com/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button twitter" href="https://twitter.com/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/BizaroPeter" target="_blank" aria-label="BizaroPeter on Twitter">BizaroPeter</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/brbcompiling" target="_blank" aria-label="brbcompiling on Twitter">brbcompiling</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/GynaWENS" target="_blank" aria-label="GynaWENS on Twitter">GynaWENS</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Twitter">HeavySamLifts</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/LegacyMartian" target="_blank" aria-label="LegacyMartian on Twitter">LegacyMartian</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Twitter">MovieByMacaffe</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Twitter">ramkrishanghoil</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Twitter">ShadyPeterLive</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Twitter">TrevorMarksman</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Twitter">ValentineCoolio</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/xvbrznem" target="_blank" aria-label="xvbrznem on Twitter">xvbrznem</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/xwlasxd" target="_blank" aria-label="xwlasxd on Twitter">xwlasxd</a></li>
+        <li><a class="social-button twitter" href="https://twitter.com/zxckjsdv" target="_blank" aria-label="zxckjsdv on Twitter">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fa-solid fa-person-harassing"></i> Kick</h2>
-      <button class="open-all-button" data-platform="kick">Open All Kick Links</button>
+    <div class="platform-section" id="kick-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fa-solid fa-person-harassing"></i> Kick</h2>
+      <button class="open-all-button" data-platform="kick" aria-label="Open all Kick links in new tabs">Open All</button>
       <ul class="link-list" id="kick-links">
-        <li><a class="social-button kick" href="https://kick.com/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button kick" href="https://kick.com/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button kick" href="https://kick.com/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button kick" href="https://kick.com/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button kick" href="https://kick.com/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button kick" href="https://kick.com/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button kick" href="https://kick.com/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button kick" href="https://kick.com/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button kick" href="https://kick.com/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button kick" href="https://kick.com/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button kick" href="https://kick.com/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button kick" href="https://kick.com/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button kick" href="https://kick.com/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button kick" href="https://kick.com/BizaroPeter" target="_blank" aria-label="BizaroPeter on Kick">BizaroPeter</a></li>
+        <li><a class="social-button kick" href="https://kick.com/brbcompiling" target="_blank" aria-label="brbcompiling on Kick">brbcompiling</a></li>
+        <li><a class="social-button kick" href="https://kick.com/GynaWENS" target="_blank" aria-label="GynaWENS on Kick">GynaWENS</a></li>
+        <li><a class="social-button kick" href="https://kick.com/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Kick">HeavySamLifts</a></li>
+        <li><a class="social-button kick" href="https://kick.com/LegacyMartian" target="_blank" aria-label="LegacyMartian on Kick">LegacyMartian</a></li>
+        <li><a class="social-button kick" href="https://kick.com/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Kick">MovieByMacaffe</a></li>
+        <li><a class="social-button kick" href="https://kick.com/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Kick">ramkrishanghoil</a></li>
+        <li><a class="social-button kick" href="https://kick.com/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Kick">ShadyPeterLive</a></li>
+        <li><a class="social-button kick" href="https://kick.com/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Kick">TrevorMarksman</a></li>
+        <li><a class="social-button kick" href="https://kick.com/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Kick">ValentineCoolio</a></li>
+        <li><a class="social-button kick" href="https://kick.com/xvbrznem" target="_blank" aria-label="xvbrznem on Kick">xvbrznem</a></li>
+        <li><a class="social-button kick" href="https://kick.com/xwlasxd" target="_blank" aria-label="xwlasxd on Kick">xwlasxd</a></li>
+        <li><a class="social-button kick" href="https://kick.com/zxckjsdv" target="_blank" aria-label="zxckjsdv on Kick">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-facebook"></i> Facebook</h2>
-      <button class="open-all-button" data-platform="facebook">Open All Facebook Links</button>
+    <div class="platform-section" id="facebook-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-facebook"></i> Facebook</h2>
+      <button class="open-all-button" data-platform="facebook" aria-label="Open all Facebook links in new tabs">Open All</button>
       <ul class="link-list" id="facebook-links">
-        <li><a class="social-button facebook" href="https://facebook.com/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button facebook" href="https://facebook.com/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/BizaroPeter" target="_blank" aria-label="BizaroPeter on Facebook">BizaroPeter</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/brbcompiling" target="_blank" aria-label="brbcompiling on Facebook">brbcompiling</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/GynaWENS" target="_blank" aria-label="GynaWENS on Facebook">GynaWENS</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Facebook">HeavySamLifts</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/LegacyMartian" target="_blank" aria-label="LegacyMartian on Facebook">LegacyMartian</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Facebook">MovieByMacaffe</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Facebook">ramkrishanghoil</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Facebook">ShadyPeterLive</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Facebook">TrevorMarksman</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Facebook">ValentineCoolio</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/xvbrznem" target="_blank" aria-label="xvbrznem on Facebook">xvbrznem</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/xwlasxd" target="_blank" aria-label="xwlasxd on Facebook">xwlasxd</a></li>
+        <li><a class="social-button facebook" href="https://facebook.com/zxckjsdv" target="_blank" aria-label="zxckjsdv on Facebook">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fab fa-telegram"></i> Telegram</h2>
-      <button class="open-all-button" data-platform="telegram">Open All Telegram Links</button>
+    <div class="platform-section" id="telegram-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fab fa-telegram"></i> Telegram</h2>
+      <button class="open-all-button" data-platform="telegram" aria-label="Open all Telegram links in new tabs">Open All</button>
       <ul class="link-list" id="telegram-links">
-        <li><a class="social-button telegram" href="https://t.me/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button telegram" href="https://t.me/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button telegram" href="https://t.me/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button telegram" href="https://t.me/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button telegram" href="https://t.me/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button telegram" href="https://t.me/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button telegram" href="https://t.me/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button telegram" href="https://t.me/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button telegram" href="https://t.me/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button telegram" href="https://t.me/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button telegram" href="https://t.me/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button telegram" href="https://t.me/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button telegram" href="https://t.me/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button telegram" href="https://t.me/BizaroPeter" target="_blank" aria-label="BizaroPeter on Telegram">BizaroPeter</a></li>
+        <li><a class="social-button telegram" href="https://t.me/brbcompiling" target="_blank" aria-label="brbcompiling on Telegram">brbcompiling</a></li>
+        <li><a class="social-button telegram" href="https://t.me/GynaWENS" target="_blank" aria-label="GynaWENS on Telegram">GynaWENS</a></li>
+        <li><a class="social-button telegram" href="https://t.me/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Telegram">HeavySamLifts</a></li>
+        <li><a class="social-button telegram" href="https://t.me/LegacyMartian" target="_blank" aria-label="LegacyMartian on Telegram">LegacyMartian</a></li>
+        <li><a class="social-button telegram" href="https://t.me/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Telegram">MovieByMacaffe</a></li>
+        <li><a class="social-button telegram" href="https://t.me/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Telegram">ramkrishanghoil</a></li>
+        <li><a class="social-button telegram" href="https://t.me/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Telegram">ShadyPeterLive</a></li>
+        <li><a class="social-button telegram" href="https://t.me/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Telegram">TrevorMarksman</a></li>
+        <li><a class="social-button telegram" href="https://t.me/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Telegram">ValentineCoolio</a></li>
+        <li><a class="social-button telegram" href="https://t.me/xvbrznem" target="_blank" aria-label="xvbrznem on Telegram">xvbrznem</a></li>
+        <li><a class="social-button telegram" href="https://t.me/xwlasxd" target="_blank" aria-label="xwlasxd on Telegram">xwlasxd</a></li>
+        <li><a class="social-button telegram" href="https://t.me/zxckjsdv" target="_blank" aria-label="zxckjsdv on Telegram">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fas fa-cloud"></i> Bluesky</h2>
-      <button class="open-all-button" data-platform="bluesky">Open All Bluesky Links</button>
+    <div class="platform-section" id="bluesky-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fas fa-cloud"></i> Bluesky</h2>
+      <button class="open-all-button" data-platform="bluesky" aria-label="Open all Bluesky links in new tabs">Open All</button>
       <ul class="link-list" id="bluesky-links">
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/xwlasxd.bsky.social" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/HeavySamLifts.bsky.social" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/ShadyPeterLive.bsky.social" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/ramkrishanghoil.bsky.social" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/zxckjsdv.bsky.social" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/brbcompiling.bsky.social" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/TrevorMarksman.bsky.social" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/ValentineCoolio.bsky.social" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/LegacyMartian.bsky.social" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/MovieByMacaffe.bsky.social" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/BizaroPeter.bsky.social" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/GynaWENS.bsky.social" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button bluesky" href="https://bsky.app/profile/xvbrznem.bsky.social" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/BizaroPeter.bsky.social" target="_blank" aria-label="BizaroPeter on Bluesky">BizaroPeter</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/brbcompiling.bsky.social" target="_blank" aria-label="brbcompiling on Bluesky">brbcompiling</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/GynaWENS.bsky.social" target="_blank" aria-label="GynaWENS on Bluesky">GynaWENS</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/HeavySamLifts.bsky.social" target="_blank" aria-label="HeavySamLifts on Bluesky">HeavySamLifts</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/LegacyMartian.bsky.social" target="_blank" aria-label="LegacyMartian on Bluesky">LegacyMartian</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/MovieByMacaffe.bsky.social" target="_blank" aria-label="MovieByMacaffe on Bluesky">MovieByMacaffe</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/ramkrishanghoil.bsky.social" target="_blank" aria-label="ramkrishanghoil on Bluesky">ramkrishanghoil</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/ShadyPeterLive.bsky.social" target="_blank" aria-label="ShadyPeterLive on Bluesky">ShadyPeterLive</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/TrevorMarksman.bsky.social" target="_blank" aria-label="TrevorMarksman on Bluesky">TrevorMarksman</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/ValentineCoolio.bsky.social" target="_blank" aria-label="ValentineCoolio on Bluesky">ValentineCoolio</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/xvbrznem.bsky.social" target="_blank" aria-label="xvbrznem on Bluesky">xvbrznem</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/xwlasxd.bsky.social" target="_blank" aria-label="xwlasxd on Bluesky">xwlasxd</a></li>
+        <li><a class="social-button bluesky" href="https://bsky.app/profile/zxckjsdv.bsky.social" target="_blank" aria-label="zxckjsdv on Bluesky">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fas fa-threads"></i> Threads</h2>
-      <button class="open-all-button" data-platform="threads">Open All Threads Links</button>
+    <div class="platform-section" id="threads-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fas fa-threads"></i> Threads</h2>
+      <button class="open-all-button" data-platform="threads" aria-label="Open all Threads links in new tabs">Open All</button>
       <ul class="link-list" id="threads-links">
-        <li><a class="social-button threads" href="https://threads.net/@xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button threads" href="https://threads.net/@xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@BizaroPeter" target="_blank" aria-label="BizaroPeter on Threads">BizaroPeter</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@brbcompiling" target="_blank" aria-label="brbcompiling on Threads">brbcompiling</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@GynaWENS" target="_blank" aria-label="GynaWENS on Threads">GynaWENS</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Threads">HeavySamLifts</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@LegacyMartian" target="_blank" aria-label="LegacyMartian on Threads">LegacyMartian</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Threads">MovieByMacaffe</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Threads">ramkrishanghoil</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Threads">ShadyPeterLive</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Threads">TrevorMarksman</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Threads">ValentineCoolio</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@xvbrznem" target="_blank" aria-label="xvbrznem on Threads">xvbrznem</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@xwlasxd" target="_blank" aria-label="xwlasxd on Threads">xwlasxd</a></li>
+        <li><a class="social-button threads" href="https://threads.net/@zxckjsdv" target="_blank" aria-label="zxckjsdv on Threads">zxckjsdv</a></li>
       </ul>
     </div>
 
-    <div class="platform-section">
-      <h2><i class="fas fa-gamepad"></i> Trovo</h2>
-      <button class="open-all-button" data-platform="trovo">Open All Trovo Links</button>
+    <div class="platform-section" id="trovo-section">
+      <h2 role="button" tabindex="0" aria-expanded="true"><i class="fas fa-gamepad"></i> Trovo</h2>
+      <button class="open-all-button" data-platform="trovo" aria-label="Open all Trovo links in new tabs">Open All</button>
       <ul class="link-list" id="trovo-links">
-        <li><a class="social-button trovo" href="https://trovo.live/xwlasxd" target="_blank">xwlasxd</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/HeavySamLifts" target="_blank">HeavySamLifts</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/ShadyPeterLive" target="_blank">ShadyPeterLive</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/ramkrishanghoil" target="_blank">ramkrishanghoil</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/zxckjsdv" target="_blank">zxckjsdv</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/brbcompiling" target="_blank">brbcompiling</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/TrevorMarksman" target="_blank">TrevorMarksman</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/ValentineCoolio" target="_blank">ValentineCoolio</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/LegacyMartian" target="_blank">LegacyMartian</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/MovieByMacaffe" target="_blank">MovieByMacaffe</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/BizaroPeter" target="_blank">BizaroPeter</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/GynaWENS" target="_blank">GynaWENS</a></li>
-        <li><a class="social-button trovo" href="https://trovo.live/xvbrznem" target="_blank">xvbrznem</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/BizaroPeter" target="_blank" aria-label="BizaroPeter on Trovo">BizaroPeter</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/brbcompiling" target="_blank" aria-label="brbcompiling on Trovo">brbcompiling</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/GynaWENS" target="_blank" aria-label="GynaWENS on Trovo">GynaWENS</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/HeavySamLifts" target="_blank" aria-label="HeavySamLifts on Trovo">HeavySamLifts</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/LegacyMartian" target="_blank" aria-label="LegacyMartian on Trovo">LegacyMartian</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/MovieByMacaffe" target="_blank" aria-label="MovieByMacaffe on Trovo">MovieByMacaffe</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/ramkrishanghoil" target="_blank" aria-label="ramkrishanghoil on Trovo">ramkrishanghoil</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/ShadyPeterLive" target="_blank" aria-label="ShadyPeterLive on Trovo">ShadyPeterLive</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/TrevorMarksman" target="_blank" aria-label="TrevorMarksman on Trovo">TrevorMarksman</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/ValentineCoolio" target="_blank" aria-label="ValentineCoolio on Trovo">ValentineCoolio</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/xvbrznem" target="_blank" aria-label="xvbrznem on Trovo">xvbrznem</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/xwlasxd" target="_blank" aria-label="xwlasxd on Trovo">xwlasxd</a></li>
+        <li><a class="social-button trovo" href="https://trovo.live/zxckjsdv" target="_blank" aria-label="zxckjsdv on Trovo">zxckjsdv</a></li>
       </ul>
     </div>
   </main>
 
   <script>
+    // Open All button functionality
     document.querySelectorAll('.open-all-button').forEach(button => {
       button.addEventListener('click', () => {
         const platform = button.getAttribute('data-platform');
@@ -442,6 +488,23 @@
         links.forEach(link => {
           window.open(link.href, '_blank');
         });
+      });
+    });
+
+    // Collapsible platform sections
+    document.querySelectorAll('.platform-section h2').forEach(header => {
+      header.addEventListener('click', () => {
+        const section = header.closest('.platform-section');
+        section.classList.toggle('collapsed');
+        const isExpanded = !section.classList.contains('collapsed');
+        header.setAttribute('aria-expanded', isExpanded);
+      });
+
+      header.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          header.click();
+        }
       });
     });
   </script>
